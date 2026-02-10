@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;

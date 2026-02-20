@@ -12,7 +12,13 @@ export type Profile = {
   socials: Socials;
 };
 
-export type PillarIconKey = "layers" | "cpu" | "shield";
+export type PillarIconKey =
+  | "layers"
+  | "cpu"
+  | "shield"
+  | "layout"
+  | "database"
+  | "zap";
 
 export type Pillar = {
   title: string;
@@ -40,6 +46,7 @@ export type Project = {
 
 export type Engineering = {
   philosophy: { title: string; text: string }[];
+  logic: { title: string; text: string; icon: PillarIconKey }[];
   skills: Record<"frontend" | "backend" | "devops" | "mobile", string[]>;
 };
 

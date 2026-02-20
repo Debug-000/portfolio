@@ -113,6 +113,28 @@ export const PORTFOLIO_DATA: PortfolioData = {
         text: "Parity between dev, staging, and production via Docker.",
       },
     ],
+    logic: [
+      {
+        title: "Logic First",
+        text: "Business logic is decoupled from frameworks for longevity.",
+        icon: "cpu",
+      },
+      {
+        title: "Atomicity",
+        text: "Small, tested modules that do one thing exceptionally well.",
+        icon: "layout",
+      },
+      {
+        title: "State Safety",
+        text: "Strict schemas and validated boundaries prevent data rot.",
+        icon: "database",
+      },
+      {
+        title: "Zero Waste",
+        text: "No unnecessary abstractions or 'just-in-case' code.",
+        icon: "zap",
+      },
+    ],
     skills: {
       frontend: ["React", "TypeScript", "Tailwind", "Framer Motion", "Next.js"],
       backend: ["Go", "Node.js", "Python", "gRPC", "PostgreSQL"],

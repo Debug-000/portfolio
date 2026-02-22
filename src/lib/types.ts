@@ -26,22 +26,43 @@ export type Pillar = {
   icon: PillarIconKey;
 };
 
+export type Capability = {
+  title: string;
+  desc: string;
+  hint: string;
+};
+
 export type ProjectMetrics = {
   perf: number;
   seo: number;
   security: string;
 };
 
+export type ProjectScores = {
+  perf?: number;
+  seo?: number;
+  security?: string;
+};
+
+export type ProjectResults = {
+  highlights: string[];
+  kpis?: Record<string, string>;
+  scores?: ProjectScores;
+};
+
 export type Project = {
   id: string;
   title: string;
-  category: string;
-  description: string;
+  summary: string;
   stack: string[];
-  problem: string;
-  solution: string;
-  results: string[];
-  metrics: ProjectMetrics;
+  category?: string;
+  aliases?: string[];
+  problem?: string;
+  solution?: string;
+  features?: string[];
+  architecture?: string;
+  details?: string;
+  results?: ProjectResults;
 };
 
 export type Engineering = {
@@ -52,6 +73,7 @@ export type Engineering = {
 
 export type PortfolioData = {
   profile: Profile;
+  capabilities: Capability[];
   pillars: Pillar[];
   projects: Project[];
   engineering: Engineering;

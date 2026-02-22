@@ -17,9 +17,10 @@ export default function HeroSection() {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
         >
-          <span className="bg-cyan-500/10 text-cyan-400 px-4 py-1.5 rounded-full text-sm font-bold tracking-widest border border-cyan-500/20">
-            SYSTEMS ARCHITECT
-          </span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-500 text-xs font-mono font-bold">
+            <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+            <p className="uppercase">Available for high-impact projects</p>
+          </div>
 
           <h1 className="text-6xl md:text-8xl font-black text-white mt-6 leading-tight">
             Design for <br />

@@ -1,5 +1,5 @@
 import React from "react";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, Zap } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/lib/portfolio-data";
 
 export default function ContactSidebar() {
@@ -50,6 +50,16 @@ export default function ContactSidebar() {
         <p className="text-xs text-slate-500">
           Currently based in GMT+1. Available for remote collaboration
           worldwide.
+        </p>
+      </div>
+
+      <div className="mt-12 p-6 bg-slate-900/50 rounded-2xl border border-slate-800 border-l-4 border-l-cyan-500">
+        <h5 className="font-bold text-slate-100 mb-2 flex items-center gap-2">
+          <Zap size={16} className="text-cyan-500" /> Professional Fit
+        </h5>
+        <p className="text-sm text-slate-400 leading-relaxed">
+          Best suited for: Go microservices, Cloud migration, Kubernetes
+          orchestration, and complex React dashboards.
         </p>
       </div>
     </div>

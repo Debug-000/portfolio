@@ -1,5 +1,15 @@
+"use client";
+
 import React from "react";
-import { Box, CheckCircle2, Cpu, Globe } from "lucide-react";
+import {
+  Box,
+  CheckCircle2,
+  Code,
+  Cpu,
+  Globe,
+  Layers,
+  Monitor,
+} from "lucide-react";
 import SectionHeader from "@/components/ui/section-header";
 import { PORTFOLIO_DATA } from "@/lib/portfolio-data";
 import PhilosophyGrid from "./philosophy";
@@ -7,6 +17,7 @@ import SkillsGrid from "./skills-grid";
 import CiPipeline from "./ci-pipeline";
 import Logic from "./logic";
 import DevOps from "./devops";
+import { motion } from "framer-motion";
 
 export default function EngineeringPage() {
   return (
@@ -28,10 +39,11 @@ export default function EngineeringPage() {
       <CiPipeline />
 
       <section className="max-w-7xl mx-auto">
-        <SectionHeader title="The Stack Workflow" subtitle="Diagram" />
-        <div
-          className={` p-12 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden`}
-        >
+        <SectionHeader
+          title="Remove up and fix down"
+          subtitle="Important Note"
+        />
+        <div className="p-8 border border-white/5 bg-slate-900/40 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
           <div className="absolute -right-20 -top-20 w-64 h-64 bg-cyan-500/5 blur-[100px]" />
 
           <div className="flex flex-col items-center gap-4 text-center">
@@ -63,6 +75,76 @@ export default function EngineeringPage() {
             <span className="font-mono text-xs text-slate-500">
               INFRA (K8S)
             </span>
+          </div>
+        </div>
+      </section>
+      <section className="py-24 overflow-hidden relative">
+        <div className="container mx-auto px-6">
+          <div className="relative h-100 w-full bg-slate-900/40 rounded-3xl border border-slate-800 flex items-center justify-center">
+            {/* Animated Diagram Mockup */}
+            <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,rgba(6,182,212,0.1)_0,transparent_70%)]" />
+            <div className="relative flex flex-col md:flex-row items-center gap-8 md:gap-24">
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{ repeat: Infinity, duration: 4 }}
+                className="flex flex-col items-center gap-2"
+              >
+                <div className="w-16 h-16 bg-slate-800 rounded-xl border border-cyan-500/50 flex items-center justify-center shadow-[0_0_20px_rgba(6,182,212,0.1)]">
+                  <Monitor className="text-cyan-400" />
+                </div>
+                <span className="text-[10px] font-mono text-slate-500">
+                  CLIENT_UI
+                </span>
+              </motion.div>
+
+              <div className="w-1 md:w-24 h-12 md:h-1 bg-linear-to-r from-cyan-500 to-blue-500 rounded-full opacity-50 relative">
+                <motion.div
+                  animate={{ left: ["0%", "100%", "0%"] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                  className="absolute top-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full blur-[2px]"
+                />
+              </div>
+
+              <motion.div
+                animate={{ y: [0, 10, 0] }}
+                transition={{ repeat: Infinity, duration: 5 }}
+                className="flex flex-col items-center gap-2"
+              >
+                <div className="w-20 h-20 bg-slate-800 rounded-2xl border border-blue-500/50 flex items-center justify-center shadow-[0_0_30px_rgba(59,130,246,0.1)]">
+                  <Code className="text-blue-400" size={32} />
+                </div>
+                <span className="text-[10px] font-mono text-slate-500">
+                  GO_ENGINE
+                </span>
+              </motion.div>
+
+              <div className="w-1 md:w-24 h-12 md:h-1 bg-linear-to-r from-blue-500 to-indigo-500 rounded-full opacity-50" />
+
+              <motion.div
+                animate={{ y: [0, -5, 0] }}
+                transition={{ repeat: Infinity, duration: 3 }}
+                className="flex flex-col items-center gap-2"
+              >
+                <div className="w-16 h-16 bg-slate-800 rounded-xl border border-indigo-500/50 flex items-center justify-center shadow-[0_0_20px_rgba(99,102,241,0.1)]">
+                  <Layers className="text-indigo-400" />
+                </div>
+                <span className="text-[10px] font-mono text-slate-500">
+                  K8S_ORCH
+                </span>
+              </motion.div>
+            </div>
+
+            <div className="absolute bottom-6 right-6 flex items-center gap-4 text-xs font-mono text-slate-600">
+              <span className="flex items-center gap-1">
+                <div className="w-2 h-2 rounded-full bg-cyan-500" /> HTTPS
+              </span>
+              <span className="flex items-center gap-1">
+                <div className="w-2 h-2 rounded-full bg-blue-500" /> gRPC
+              </span>
+              <span className="flex items-center gap-1">
+                <div className="w-2 h-2 rounded-full bg-indigo-500" /> CI/CD
+              </span>
+            </div>
           </div>
         </div>
       </section>

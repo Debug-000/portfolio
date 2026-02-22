@@ -6,7 +6,7 @@ import ContactForm from "./contact-form";
 
 export default function ContactPage() {
   return (
-    <div className="pt-32 pb-20 max-w-5xl mx-auto space-y-24">
+    <div className="pt-32 pb-20 mx-auto space-y-24">
       <SectionHeader
         title="Let's Build Systems"
         subtitle="Interested in hiring me for high-scale engineering projects or consulting on infrastructure automation?"

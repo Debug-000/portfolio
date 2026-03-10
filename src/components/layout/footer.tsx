@@ -3,75 +3,82 @@
 import React from "react";
 import Link from "next/link";
 import { Github, Linkedin, Mail } from "lucide-react";
+import { PORTFOLIO_DATA } from "@/lib/portfolio-data";
 
 export default function Footer() {
+  const { profile } = PORTFOLIO_DATA;
+
   return (
-    <footer className="relative z-10 bg-slate-950 border-t border-slate-900 pt-24 pb-12 mt-20">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-4 gap-12 mb-16">
-          <div className="space-y-6">
-            <div className="text-white font-black text-2xl tracking-tighter">
-              SONI.DEV
-            </div>
-            <p className="text-slate-500 text-sm leading-relaxed">
-              Senior Systems Engineer focused on building resilient,
-              high-performance infrastructure and intuitive software interfaces.
+    <footer className="relative z-10 mt-24 border-t border-[var(--border-soft)] bg-[rgba(7,12,21,0.9)] pt-16 pb-10">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="grid gap-10 md:grid-cols-[1.3fr_0.7fr_0.8fr]">
+          <div>
+            <p className="text-xs uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
+              Positioning
             </p>
-            <div className="flex gap-4">
+            <h4 className="mt-3 text-2xl font-bold text-[var(--text-primary)]">
+              Systems engineer focused on product-grade software delivery.
+            </h4>
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-[var(--text-secondary)]">
+              Frontend quality, architecture clarity, and operational discipline
+              are treated as one system. That is the standard behind every
+              engagement.
+            </p>
+            <div className="mt-5 flex gap-3">
               <a
-                href="#"
-                className="p-2 bg-slate-900 hover:bg-blue-600 rounded-lg text-slate-400 hover:text-white transition-all"
+                href={profile.socials.github}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-[rgba(13,21,35,0.85)] text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
                 aria-label="GitHub"
               >
-                <Github className="w-4 h-4" />
+                <Github className="h-4 w-4" />
               </a>
               <a
-                href="#"
-                className="p-2 bg-slate-900 hover:bg-blue-600 rounded-lg text-slate-400 hover:text-white transition-all"
+                href={profile.socials.linkedin}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-[rgba(13,21,35,0.85)] text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
                 aria-label="LinkedIn"
               >
-                <Linkedin className="w-4 h-4" />
+                <Linkedin className="h-4 w-4" />
               </a>
               <a
-                href="#"
-                className="p-2 bg-slate-900 hover:bg-blue-600 rounded-lg text-slate-400 hover:text-white transition-all"
+                href={`mailto:${profile.socials.email}`}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-[rgba(13,21,35,0.85)] text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
                 aria-label="Email"
               >
-                <Mail className="w-4 h-4" />
+                <Mail className="h-4 w-4" />
               </a>
             </div>
           </div>
 
           <div>
-            <h5 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">
+            <h5 className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
               Navigation
             </h5>
-            <ul className="space-y-4 text-sm">
+            <ul className="mt-4 space-y-3 text-sm">
               <li>
-                <Link href="/" className="text-slate-500 hover:text-cyan-400">
-                  System Home
+                <Link href="/" className="text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]">
+                  Home
                 </Link>
               </li>
               <li>
                 <Link
                   href="/projects"
-                  className="text-slate-500 hover:text-cyan-400"
+                  className="text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
                 >
-                  Engineering Projects
+                  Projects
                 </Link>
               </li>
               <li>
                 <Link
                   href="/engineering"
-                  className="text-slate-500 hover:text-cyan-400"
+                  className="text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
                 >
-                  Tech Philosophy
+                  Engineering
                 </Link>
               </li>
               <li>
                 <Link
                   href="/contact"
-                  className="text-slate-500 hover:text-cyan-400"
+                  className="text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
                 >
                   Contact
                 </Link>
@@ -79,63 +86,30 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
-            <h5 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">
-              Terminal Shortcuts
-            </h5>
-            <ul className="space-y-4 text-sm font-mono">
-              <li>
-                <span className="text-cyan-600">projects</span> - list projects
-              </li>
-              <li>
-                <span className="text-cyan-600">open</span> - open case study
-              </li>
-              <li>
-                <span className="text-cyan-600">skills</span> - list skills
-              </li>
-              <li>
-                <span className="text-cyan-600">contact</span> - show contact
-                info
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h5 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">
-              Status
-            </h5>
-            <div className="bg-slate-900 p-4 rounded-xl border border-slate-800">
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                <span className="text-xs font-bold text-white uppercase">
-                  Operational
-                </span>
-              </div>
-              <div className="text-[10px] text-slate-500">
-                Last deploy: 2024-05-12 <br />
-                Environment: Production <br />
-                Latency: 14ms
-              </div>
+          <div className="surface-soft rounded-xl p-4">
+            <p className="text-xs uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
+              Operating Status
+            </p>
+            <div className="mt-3 flex items-center gap-2 text-sm text-[var(--text-primary)]">
+              <span className="h-2 w-2 rounded-full bg-[var(--ok)] pulse-fade" />
+              Open to selective 2026 engagements
+            </div>
+            <div className="mt-4 space-y-2 text-xs text-[var(--text-secondary)]">
+              <p>Focus: Frontend systems, architecture, delivery rigor</p>
+              <p>Timezone overlap: EU + US collaboration friendly</p>
+              <p>Response channel: contact page or direct email</p>
             </div>
           </div>
         </div>
 
-        <div className="pt-12 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-slate-600 text-xs">
-            © {new Date().getFullYear()} Elisjon Portfolio. All rights reserved.
-            Built with Go &amp; React.
-          </div>
-          <div className="flex gap-6 text-xs text-slate-600">
-            <a href="#" className="hover:text-white">
-              Security Policy
-            </a>
-            <a href="#" className="hover:text-white">
-              API Docs
-            </a>
-            <a href="#" className="hover:text-white">
-              Legal
-            </a>
-          </div>
+        <div className="mt-10 flex flex-col gap-3 border-t border-[var(--border-soft)] pt-6 text-xs text-[var(--text-tertiary)] md:flex-row md:items-center md:justify-between">
+          <p>
+            © {new Date().getFullYear()} {profile.name}. Structured execution,
+            premium standards.
+          </p>
+          <p className="text-[var(--text-tertiary)]">
+            Built with Next.js, TypeScript, and a systems-first design language.
+          </p>
         </div>
       </div>
     </footer>

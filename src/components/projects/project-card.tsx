@@ -1,5 +1,5 @@
 import React, { JSX } from "react";
-import { CheckCircle2, Github, Globe } from "lucide-react";
+import { CheckCircle2, Globe, Lock, ArrowUpRight } from "lucide-react";
 import type { Project } from "@/lib/types";
 
 type Props = {
@@ -14,7 +14,7 @@ function startCase(input: string) {
     .replace(/([a-z])([A-Z])/g, "$1 $2")
     .split(" ")
     .filter(Boolean)
-    .map((w) => w[0]?.toUpperCase() + w.slice(1))
+    .map((word) => word[0]?.toUpperCase() + word.slice(1))
     .join(" ");
 }
 
@@ -23,185 +23,139 @@ export default function ProjectCard({
   index,
   total,
 }: Props): JSX.Element {
-  const flipped = index % 2 !== 0;
-
   const highlights = project.results?.highlights ?? [];
   const scores = project.results?.scores ?? {};
   const kpis = project.results?.kpis ?? {};
 
-  const scoreEntries = Object.entries(scores).filter(([, v]) => v != null);
+  const scoreEntries = Object.entries(scores).filter(([, value]) => value != null);
   const kpiEntries = Object.entries(kpis).filter(
-    ([, v]) => v != null && String(v).length > 0,
+    ([, value]) => value != null && String(value).length > 0,
   );
 
   return (
-    <div className="grid md:grid-cols-12 gap-12 items-start">
-      <div className={`md:col-span-5 ${flipped ? "md:order-2" : ""}`}>
-        <span className="text-cyan-400 font-mono text-sm">
-          {String(index + 1).padStart(2, "0")} /{" "}
-          {String(total).padStart(2, "0")}
-        </span>
+    <article className="surface-panel hover-lift grid rounded-2xl border overflow-hidden lg:grid-cols-[1.05fr_0.95fr]">
+      <div className="p-6 md:p-8">
+        <div className="flex items-center justify-between gap-3">
+          <span className="text-mono text-xs text-[var(--text-tertiary)]">
+            CASE {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+          </span>
+          <span className="rounded-full border border-[var(--border-soft)] bg-[var(--accent-tint)] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-[var(--accent-ink)]">
+            {project.category ?? "Project"}
+          </span>
+        </div>
 
-        <h3 className="text-4xl font-bold text-white mt-4 mb-2">
+        <h3 className="mt-4 text-2xl font-bold text-[var(--text-primary)] md:text-3xl">
           {project.title}
         </h3>
-
-        {project.category ? (
-          <div className="text-xs font-bold uppercase tracking-wide text-slate-500 mb-6">
-            {project.category}
-          </div>
-        ) : (
-          <div className="mb-6" />
-        )}
-
-        <p className="text-slate-400 leading-relaxed mb-10">
+        <p className="mt-3 text-sm leading-relaxed text-[var(--text-secondary)] md:text-base">
           {project.summary}
         </p>
 
-        <div className="space-y-8">
+        <div className="mt-5 flex flex-wrap gap-2">
+          {project.stack.slice(0, 8).map((stackItem) => (
+            <span
+              key={stackItem}
+              className="rounded-md border border-[var(--border-soft)] bg-[rgba(12,20,33,0.8)] px-2.5 py-1 text-xs text-[var(--text-secondary)]"
+            >
+              {stackItem}
+            </span>
+          ))}
+        </div>
+
+        <div className="mt-7 grid gap-4 md:grid-cols-2">
           {project.problem ? (
-            <div>
-              <h4 className="text-slate-200 font-bold mb-2 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-red-400 rounded-full" /> The
-                Problem
-              </h4>
-              <p className="text-slate-400 leading-relaxed">
+            <div className="rounded-xl border border-[var(--border-soft)] bg-[rgba(11,18,30,0.8)] p-4">
+              <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-tertiary)]">
+                Constraint
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--text-secondary)]">
                 {project.problem}
               </p>
             </div>
           ) : null}
 
           {project.solution ? (
-            <div>
-              <h4 className="text-slate-200 font-bold mb-2 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-green-400 rounded-full" /> The
+            <div className="rounded-xl border border-[var(--border-soft)] bg-[rgba(11,18,30,0.8)] p-4">
+              <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-tertiary)]">
                 Solution
-              </h4>
-              <p className="text-slate-400 leading-relaxed">
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--text-secondary)]">
                 {project.solution}
               </p>
             </div>
           ) : null}
-
-          {highlights.length > 0 ? (
-            <div>
-              <h4 className="text-slate-200 font-bold mb-4">Results</h4>
-              <ul className="space-y-2">
-                {highlights.map((r, idx) => (
-                  <li
-                    key={idx}
-                    className="flex items-center gap-3 text-slate-300"
-                  >
-                    <CheckCircle2 className="w-4 h-4 text-cyan-400" /> {r}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
         </div>
       </div>
 
-      <div className="md:col-span-7 bg-slate-900 border border-slate-800 rounded-3xl p-8 h-full min-h-100 flex flex-col justify-between">
+      <div className="border-t border-[var(--border-soft)] bg-[rgba(8,14,24,0.84)] p-6 md:p-8 lg:border-l lg:border-t-0">
         <div>
-          <div className="flex flex-wrap gap-3 mb-10">
-            {project.stack.map((s) => (
-              <span
-                key={s}
-                className="px-4 py-2 bg-slate-800 rounded-lg text-sm text-slate-300 border border-slate-700"
+          <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-tertiary)]">
+            Delivery Signals
+          </p>
+          <div className="mt-3 space-y-2.5 text-sm text-[var(--text-secondary)]">
+            {highlights.slice(0, 3).map((highlight) => (
+              <p key={highlight} className="flex items-start gap-2">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--accent)]" />
+                {highlight}
+              </p>
+            ))}
+            {highlights.length === 0 && (
+              <p>
+                Built for robust architecture, maintainability, and faster
+                delivery control.
+              </p>
+            )}
+          </div>
+        </div>
+
+        {(scoreEntries.length > 0 || kpiEntries.length > 0) && (
+          <div className="mt-5 grid grid-cols-2 gap-2.5">
+            {[...scoreEntries, ...kpiEntries].slice(0, 4).map(([key, value]) => (
+              <div
+                key={key}
+                className="rounded-lg border border-[var(--border-soft)] bg-[rgba(13,22,36,0.82)] p-3"
               >
-                {s}
-              </span>
+                <p className="text-lg font-semibold text-[var(--text-primary)]">
+                  {String(value)}
+                </p>
+                <p className="text-[10px] uppercase tracking-[0.13em] text-[var(--text-tertiary)]">
+                  {startCase(key)}
+                </p>
+              </div>
             ))}
           </div>
+        )}
 
-          {(project.architecture || project.details) && (
-            <div className="mb-10 space-y-3">
-              {project.architecture ? (
-                <div>
-                  <div className="text-[10px] text-slate-500 uppercase font-bold">
-                    Architecture
-                  </div>
-                  <div className="text-slate-300">{project.architecture}</div>
-                </div>
-              ) : null}
+        {(project.architecture || project.details) && (
+          <div className="mt-5 rounded-xl border border-[var(--border-soft)] bg-[rgba(11,18,30,0.78)] p-4 text-sm text-[var(--text-secondary)]">
+            {project.architecture ? (
+              <p>
+                <span className="text-[var(--text-tertiary)]">Architecture:</span>{" "}
+                {project.architecture}
+              </p>
+            ) : null}
+            {project.details ? (
+              <p className="mt-2">
+                <span className="text-[var(--text-tertiary)]">Notes:</span>{" "}
+                {project.details}
+              </p>
+            ) : null}
+          </div>
+        )}
 
-              {project.details ? (
-                <div>
-                  <div className="text-[10px] text-slate-500 uppercase font-bold">
-                    Notes
-                  </div>
-                  <div className="text-slate-400">{project.details}</div>
-                </div>
-              ) : null}
-            </div>
-          )}
-
-          {scoreEntries.length > 0 || kpiEntries.length > 0 ? (
-            <div className="grid grid-cols-3 gap-4">
-              {scoreEntries.map(([key, val]) => (
-                <div
-                  key={`score-${key}`}
-                  className="bg-slate-800/50 p-4 rounded-xl text-center"
-                >
-                  <div className="text-cyan-400 text-2xl font-black">
-                    {String(val)}
-                  </div>
-                  <div className="text-[10px] text-slate-500 uppercase font-bold mt-1">
-                    {startCase(key)}
-                  </div>
-                </div>
-              ))}
-
-              {kpiEntries
-                .slice(0, Math.max(0, 6 - scoreEntries.length))
-                .map(([key, val]) => (
-                  <div
-                    key={`kpi-${key}`}
-                    className="bg-slate-800/50 p-4 rounded-xl text-center"
-                  >
-                    <div className="text-cyan-400 text-2xl font-black">
-                      {String(val)}
-                    </div>
-                    <div className="text-[10px] text-slate-500 uppercase font-bold mt-1">
-                      {startCase(key)}
-                    </div>
-                  </div>
-                ))}
-            </div>
-          ) : (
-            <div className="text-slate-500 text-sm">
-              No metrics available for this project.
-            </div>
-          )}
-
-          {project.features?.length ? (
-            <div className="mt-10">
-              <div className="text-[10px] text-slate-500 uppercase font-bold mb-3">
-                Key Features
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {project.features.map((f) => (
-                  <span
-                    key={f}
-                    className="px-3 py-1.5 rounded-full text-xs bg-slate-800/60 border border-slate-700 text-slate-300"
-                  >
-                    {f}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ) : null}
+        <div className="mt-6 flex items-center justify-between text-xs text-[var(--text-tertiary)]">
+          <span className="inline-flex items-center gap-1.5">
+            <Globe className="h-3.5 w-3.5" /> Production context
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <Lock className="h-3.5 w-3.5" /> Private repositories
+          </span>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-slate-800 flex justify-between items-center">
-          <div className="flex items-center gap-2 text-slate-500 text-sm">
-            <Globe className="w-4 h-4" /> Live System
-          </div>
-          <div className="flex items-center gap-2 text-slate-500 text-sm">
-            <Github className="w-4 h-4" /> Private Repo
-          </div>
-        </div>
+        <p className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)]">
+          Strategic engineering case study <ArrowUpRight className="h-4 w-4" />
+        </p>
       </div>
-    </div>
+    </article>
   );
 }

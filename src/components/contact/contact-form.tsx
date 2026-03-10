@@ -19,31 +19,31 @@ export default function ContactForm() {
   );
 
   function set<K extends keyof FormState>(key: K, value: FormState[K]) {
-    setForm((p) => ({ ...p, [key]: value }));
+    setForm((previous) => ({ ...previous, [key]: value }));
   }
 
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  async function onSubmit(event: React.FormEvent) {
+    event.preventDefault();
     setStatus(null);
     setLoading(true);
 
     try {
-      const res = await fetch("/api/contact", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
 
-      const data = (await res.json()) as { ok?: boolean; error?: string };
+      const data = (await response.json()) as { ok?: boolean; error?: string };
 
-      if (!res.ok) {
+      if (!response.ok) {
         setStatus({ ok: false, msg: data.error || "Request failed." });
         return;
       }
 
       setStatus({
         ok: true,
-        msg: "Message delivered. I’ll get back to you soon.",
+        msg: "Message received. I will respond with a structured next step.",
       });
       setForm(initial);
     } catch {
@@ -54,76 +54,85 @@ export default function ContactForm() {
   }
 
   return (
-    <div className="bg-slate-900/50 p-8 rounded-3xl border border-slate-800">
-      <form onSubmit={onSubmit} className="space-y-6">
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <label className="text-xs font-bold text-slate-500 uppercase">
+    <div className="surface-elevated rounded-2xl p-5 md:p-6">
+      <div className="mb-5">
+        <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-tertiary)]">
+          Project Intake
+        </p>
+        <h2 className="mt-2 text-2xl font-semibold text-[var(--text-primary)]">
+          Share context with technical precision.
+        </h2>
+      </div>
+
+      <form onSubmit={onSubmit} className="space-y-5">
+        <div className="grid gap-4 md:grid-cols-2">
+          <label className="space-y-2 text-sm">
+            <span className="text-xs uppercase tracking-[0.14em] text-[var(--text-tertiary)]">
               Name
-            </label>
+            </span>
             <input
               type="text"
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500"
-              placeholder="John Doe"
+              className="w-full rounded-xl border border-[var(--border-soft)] bg-[rgba(10,17,30,0.84)] px-4 py-3 text-sm text-[var(--text-primary)] outline-none transition placeholder:text-[var(--text-tertiary)] focus:border-[var(--border-strong)]"
+              placeholder="Your name"
               value={form.name}
               onChange={(e) => set("name", e.target.value)}
               required
               minLength={2}
             />
-          </div>
+          </label>
 
-          <div className="space-y-2">
-            <label className="text-xs font-bold text-slate-500 uppercase">
+          <label className="space-y-2 text-sm">
+            <span className="text-xs uppercase tracking-[0.14em] text-[var(--text-tertiary)]">
               Email
-            </label>
+            </span>
             <input
               type="email"
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500"
-              placeholder="john@company.com"
+              className="w-full rounded-xl border border-[var(--border-soft)] bg-[rgba(10,17,30,0.84)] px-4 py-3 text-sm text-[var(--text-primary)] outline-none transition placeholder:text-[var(--text-tertiary)] focus:border-[var(--border-strong)]"
+              placeholder="you@company.com"
               value={form.email}
               onChange={(e) => set("email", e.target.value)}
               required
             />
-          </div>
+          </label>
         </div>
 
-        <div className="space-y-2">
-          <label className="text-xs font-bold text-slate-500 uppercase">
+        <label className="space-y-2 text-sm block">
+          <span className="text-xs uppercase tracking-[0.14em] text-[var(--text-tertiary)]">
             Subject
-          </label>
+          </span>
           <input
             type="text"
-            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500"
-            placeholder="System Architecture Project"
+            className="w-full rounded-xl border border-[var(--border-soft)] bg-[rgba(10,17,30,0.84)] px-4 py-3 text-sm text-[var(--text-primary)] outline-none transition placeholder:text-[var(--text-tertiary)] focus:border-[var(--border-strong)]"
+            placeholder="Product surface, system area, or delivery challenge"
             value={form.subject}
             onChange={(e) => set("subject", e.target.value)}
             required
             minLength={3}
           />
-        </div>
+        </label>
 
-        <div className="space-y-2">
-          <label className="text-xs font-bold text-slate-500 uppercase">
-            Message
-          </label>
+        <label className="space-y-2 text-sm block">
+          <span className="text-xs uppercase tracking-[0.14em] text-[var(--text-tertiary)]">
+            Project Context
+          </span>
           <textarea
-            rows={5}
-            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500"
-            placeholder="Tell me about your technical constraints..."
+            rows={7}
+            className="w-full rounded-xl border border-[var(--border-soft)] bg-[rgba(10,17,30,0.84)] px-4 py-3 text-sm leading-relaxed text-[var(--text-primary)] outline-none transition placeholder:text-[var(--text-tertiary)] focus:border-[var(--border-strong)]"
+            placeholder="Include constraints, timeline expectations, and what success looks like."
             value={form.message}
             onChange={(e) => set("message", e.target.value)}
             required
             minLength={10}
           />
-        </div>
+        </label>
 
         {status && (
           <div
             className={[
-              "text-sm rounded-xl border px-4 py-3",
+              "rounded-xl border px-4 py-3 text-sm",
               status.ok
-                ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
-                : "border-red-500/30 bg-red-500/10 text-red-300",
+                ? "border-emerald-500/35 bg-emerald-500/10 text-emerald-200"
+                : "border-red-500/35 bg-red-500/10 text-red-200",
             ].join(" ")}
           >
             {status.msg}
@@ -132,9 +141,9 @@ export default function ContactForm() {
 
         <button
           disabled={loading}
-          className="w-full bg-blue-600 hover:bg-blue-500 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl transition-all"
+          className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--accent)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--accent-strong)] disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {loading ? "Sending..." : "Initialize Contact"}
+          {loading ? "Sending Brief..." : "Submit Technical Brief"}
         </button>
       </form>
     </div>

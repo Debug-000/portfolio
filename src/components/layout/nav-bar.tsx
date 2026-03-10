@@ -2,65 +2,77 @@
 
 import React from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { Terminal } from "lucide-react";
 import { useTerminal } from "@/components/terminal/terminal-context";
+
+const AccentSwitcher = dynamic(() => import("./accent-switcher"), {
+  ssr: false,
+  loading: () => (
+    <div className="h-10 w-10 rounded-lg border border-[var(--border-soft)] bg-[rgba(12,20,34,0.9)] md:w-20" />
+  ),
+});
 
 export default function NavBar() {
   const pathname = usePathname();
   const { openTerminal } = useTerminal();
 
   const items = [
-    { href: "/", label: "home" },
-    { href: "/projects", label: "projects" },
-    { href: "/engineering", label: "engineering" },
-    { href: "/contact", label: "contact" },
+    { href: "/", label: "Home" },
+    { href: "/projects", label: "Projects" },
+    { href: "/engineering", label: "Engineering" },
+    { href: "/contact", label: "Contact" },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-white/5">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <nav className="fixed left-0 right-0 top-0 z-50 border-b border-[var(--border-soft)] bg-[rgba(7,13,24,0.78)] backdrop-blur-xl">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
         <Link
           href="/"
-          className="text-white font-black text-2xl tracking-tighter flex items-center gap-2"
+          className="inline-flex items-center gap-3 text-[var(--text-primary)]"
         >
-          <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-sm">
-            S
-          </div>
-          SONI
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-[rgba(16,27,44,0.9)] text-sm font-bold text-[var(--accent)]">
+            E
+          </span>
+          <span className="text-sm font-semibold uppercase tracking-[0.19em] md:text-base">
+            Elisjon.dev
+          </span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-8 text-sm font-bold">
-          {items.map((i) => (
+        <div className="hidden items-center gap-7 text-sm md:flex">
+          {items.map((item) => (
             <Link
-              key={i.href}
-              href={i.href}
+              key={item.href}
+              href={item.href}
               className={[
-                "uppercase tracking-widest transition-colors",
-                pathname === i.href
-                  ? "text-cyan-400"
-                  : "text-slate-400 hover:text-white",
+                "border-b pb-1 transition",
+                pathname === item.href
+                  ? "border-[var(--accent)] text-[var(--text-primary)]"
+                  : "border-transparent text-[var(--text-secondary)] hover:text-[var(--text-primary)]",
               ].join(" ")}
             >
-              {i.label}
+              {item.label}
             </Link>
           ))}
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
+          <AccentSwitcher />
+
           <button
             onClick={() => openTerminal(pathname)}
-            className="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition-all"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-[rgba(12,20,34,0.9)] text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
             title="Switch to Terminal Mode"
           >
-            <Terminal className="w-5 h-5" />
+            <Terminal className="h-4 w-4" />
           </button>
 
           <Link
             href="/contact"
-            className="hidden md:block bg-white text-slate-950 px-5 py-2 rounded-lg font-bold text-sm hover:bg-cyan-400 transition-all"
+            className="hidden rounded-lg border border-[var(--border-soft)] bg-[rgba(14,24,40,0.88)] px-4 py-2.5 text-sm font-semibold text-[var(--text-primary)] transition hover:border-[var(--border-strong)] md:inline-flex"
           >
-            Let&apos;s Talk
+            Book Intro Call
           </Link>
         </div>
       </div>

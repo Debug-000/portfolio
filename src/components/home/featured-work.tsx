@@ -37,7 +37,7 @@ export default function FeaturedWorkSection() {
               <h3 className="text-2xl font-bold text-white mt-2 mb-4">
                 {proj.title}
               </h3>
-              <p className="text-slate-400 mb-6">{proj.description}</p>
+              <p className="text-slate-400 mb-6">{proj.summary}</p>
 
               <div className="flex flex-wrap gap-2 mb-8">
                 {proj.stack.map((s) => (

@@ -16,8 +16,19 @@ function SiteShellInner({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { isOpen, initialView, closeTerminal } = useTerminal();
 
+  React.useEffect(() => {
+    if (!isOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isOpen]);
+
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-300 selection:bg-cyan-500 selection:text-white overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden text-[var(--text-primary)]">
       <BackgroundOrbs />
 
       <AnimatePresence>
@@ -26,7 +37,7 @@ function SiteShellInner({ children }: { children: React.ReactNode }) {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="fixed inset-0 z-100"
+            className="fixed inset-0 z-[100]"
           >
             <TerminalMode
               onExit={closeTerminal}
@@ -38,7 +49,7 @@ function SiteShellInner({ children }: { children: React.ReactNode }) {
 
       <NavBar />
 
-      <main className="relative z-10 max-w-7xl mx-auto px-6">
+      <main className="relative z-10 mx-auto max-w-7xl px-5 md:px-6">
         <AnimatePresence mode="wait">
           <motion.div
             key={pathname}

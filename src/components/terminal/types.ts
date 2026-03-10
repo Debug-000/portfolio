@@ -8,4 +8,5 @@ export type TerminalLine = {
 export type TerminalCommandResult =
   | { kind: "append"; lines: TerminalLine[] }
   | { kind: "reset" }
-  | { kind: "exit" };
+  | { kind: "exit" }
+  | { kind: "navigate"; path: string; lines?: TerminalLine[] };

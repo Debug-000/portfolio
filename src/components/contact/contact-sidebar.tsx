@@ -1,67 +1,86 @@
 import React from "react";
-import { Github, Linkedin, Mail, Zap } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowRight } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/lib/portfolio-data";
 
 export default function ContactSidebar() {
   const { socials } = PORTFOLIO_DATA.profile;
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h4 className="text-white font-bold mb-4">Availability</h4>
-        <p className="text-slate-400">
-          Currently accepting high-priority consulting roles and full-time
-          leadership positions.
+    <aside className="space-y-5">
+      <article className="surface-panel rounded-2xl p-5 md:p-6">
+        <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-tertiary)]">
+          Engagement Fit
         </p>
-      </div>
+        <h3 className="mt-2 text-xl font-semibold text-[var(--text-primary)]">
+          Best suited for high-impact product and platform work.
+        </h3>
+        <div className="mt-4 space-y-2 text-sm text-[var(--text-secondary)]">
+          <p>1. Product surfaces that need premium frontend execution</p>
+          <p>2. Systems that require architecture cleanup and scaling control</p>
+          <p>3. Teams that value disciplined delivery over feature churn</p>
+        </div>
+      </article>
 
-      <div>
-        <h4 className="text-white font-bold mb-4">Direct Communication</h4>
-        <div className="space-y-4">
+      <article className="surface-panel rounded-2xl p-5 md:p-6">
+        <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-tertiary)]">
+          Direct Channels
+        </p>
+        <div className="mt-4 space-y-3 text-sm">
           <a
             href={socials.github}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-3 text-slate-400 hover:text-cyan-400 transition-colors"
+            className="group flex items-center justify-between rounded-xl border border-[var(--border-soft)] bg-[rgba(12,20,33,0.78)] px-3 py-2.5 text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
           >
-            <Github className="w-5 h-5" />{" "}
-            {socials.github.replace("https://", "")}
+            <span className="inline-flex items-center gap-2">
+              <Github className="h-4 w-4 text-[var(--accent)]" />
+              {socials.github.replace("https://", "")}
+            </span>
+            <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
           </a>
+
           <a
             href={socials.linkedin}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-3 text-slate-400 hover:text-cyan-400 transition-colors"
+            className="group flex items-center justify-between rounded-xl border border-[var(--border-soft)] bg-[rgba(12,20,33,0.78)] px-3 py-2.5 text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
           >
-            <Linkedin className="w-5 h-5" />{" "}
-            {socials.linkedin.replace("https://", "")}
+            <span className="inline-flex items-center gap-2">
+              <Linkedin className="h-4 w-4 text-[var(--accent)]" />
+              {socials.linkedin.replace("https://", "")}
+            </span>
+            <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
           </a>
+
           <a
             href={`mailto:${socials.email}`}
-            className="flex items-center gap-3 text-slate-400 hover:text-cyan-400 transition-colors"
+            className="group flex items-center justify-between rounded-xl border border-[var(--border-soft)] bg-[rgba(12,20,33,0.78)] px-3 py-2.5 text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
           >
-            <Mail className="w-5 h-5" /> {socials.email}
+            <span className="inline-flex items-center gap-2">
+              <Mail className="h-4 w-4 text-[var(--accent)]" />
+              {socials.email}
+            </span>
+            <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
           </a>
         </div>
-      </div>
+      </article>
 
-      <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800">
-        <h5 className="text-sm font-bold text-white mb-2">Timezone</h5>
-        <p className="text-xs text-slate-500">
-          Currently based in GMT+1. Available for remote collaboration
-          worldwide.
+      <article className="surface-elevated rounded-2xl p-5 md:p-6">
+        <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-tertiary)]">
+          Working Notes
         </p>
-      </div>
-
-      <div className="mt-12 p-6 bg-slate-900/50 rounded-2xl border border-slate-800 border-l-4 border-l-cyan-500">
-        <h5 className="font-bold text-slate-100 mb-2 flex items-center gap-2">
-          <Zap size={16} className="text-cyan-500" /> Professional Fit
-        </h5>
-        <p className="text-sm text-slate-400 leading-relaxed">
-          Best suited for: Go microservices, Cloud migration, Kubernetes
-          orchestration, and complex React dashboards.
-        </p>
-      </div>
-    </div>
+        <div className="mt-3 space-y-2 text-sm text-[var(--text-secondary)]">
+          <p>Timezone overlap: CET with strong US collaboration support.</p>
+          <p>
+            Prioritize clear scope, measurable outcomes, and realistic delivery
+            windows.
+          </p>
+          <p>
+            Selective on engagements where engineering quality is a hard
+            requirement.
+          </p>
+        </div>
+      </article>
+    </aside>
   );
 }

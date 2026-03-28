@@ -8,7 +8,7 @@ type AccentTheme = "blue" | "red" | "purple" | "green" | "orange" | "yellow";
 const STORAGE_KEY = "portfolio-accent-theme";
 
 const THEMES: Array<{ id: AccentTheme; label: string; color: string }> = [
-  { id: "blue", label: "Blue", color: "#4e8cff" },
+  { id: "blue", label: "Blue", color: "#3b82f6" },
   { id: "red", label: "Red", color: "#e45252" },
   { id: "purple", label: "Purple", color: "#975eff" },
   { id: "green", label: "Green", color: "#46bd80" },
@@ -62,7 +62,7 @@ export default function AccentSwitcher() {
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
-        className="inline-flex h-10 items-center gap-2 rounded-lg border border-[var(--border-soft)] bg-[rgba(12,20,34,0.9)] px-3 text-xs text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
+        className="inline-flex h-10 items-center gap-2 rounded-lg border border-[var(--border)] bg-[rgba(38,38,38,0.72)] px-3 text-xs text-[var(--muted-foreground)] transition hover:border-[var(--ring)] hover:text-[var(--foreground)]"
         aria-haspopup="menu"
         aria-expanded={open}
         title="Switch accent theme"
@@ -72,13 +72,13 @@ export default function AccentSwitcher() {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-12 z-[60] w-48 rounded-xl border border-[var(--border-soft)] bg-[rgba(8,14,24,0.96)] p-2 shadow-[0_16px_40px_rgba(0,0,0,0.45)]">
+        <div className="absolute right-0 top-12 z-[60] w-48 rounded-xl border border-[var(--border)] bg-[var(--popover)] p-2 text-[var(--popover-foreground)] shadow-[0_16px_40px_rgba(0,0,0,0.45)]">
           {THEMES.map((item) => (
             <button
               key={item.id}
               type="button"
               onClick={() => onThemeChange(item.id)}
-              className="flex w-full items-center justify-between rounded-lg px-2.5 py-2 text-sm text-[var(--text-secondary)] transition hover:bg-[rgba(255,255,255,0.03)] hover:text-[var(--text-primary)]"
+              className="flex w-full items-center justify-between rounded-lg px-2.5 py-2 text-sm text-[var(--muted-foreground)] transition hover:bg-[rgba(255,255,255,0.03)] hover:text-[var(--foreground)]"
             >
               <span>{item.label}</span>
               <span

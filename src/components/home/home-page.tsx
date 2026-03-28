@@ -4,506 +4,576 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
+  BriefcaseBusiness,
+  CheckCircle2,
   Gauge,
   Layers,
+  Mail,
   ShieldCheck,
   Workflow,
-  CheckCircle2,
-  LineChart,
-  Terminal,
-  BriefcaseBusiness,
-  Blocks,
-  Mail,
 } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/lib/portfolio-data";
 
-const metrics = [
-  { label: "Memory Reduction", value: "4x", note: "Labrago platform rewrite" },
+const heroSignals = [
   {
-    label: "Provisioning Time",
-    value: "4 min",
-    note: "Infra flow reduced from hours",
+    icon: Layers,
+    title: "Architecture control",
+    text: "Boundaries across UI, API, and platform layers stay explicit from the first decision.",
   },
   {
-    label: "Lighthouse",
-    value: "100/100",
-    note: "Performance + SEO on shipped work",
+    icon: Gauge,
+    title: "Performance discipline",
+    text: "Budgets, profiling loops, and delivery tradeoffs are managed as product constraints.",
   },
   {
-    label: "Delivery Focus",
-    value: "End-to-end",
-    note: "Architecture, UX, and deployment",
+    icon: ShieldCheck,
+    title: "Production readiness",
+    text: "Release controls, reliability, and security are designed into the system instead of added later.",
+  },
+];
+
+const proofMetrics = [
+  { label: "Memory reduction", value: "4x", note: "Go platform rewrite" },
+  { label: "Provisioning time", value: "4 min", note: "Infrastructure flow reduced from hours" },
+  { label: "Lighthouse", value: "100/100", note: "Performance and SEO on shipped work" },
+];
+
+const principles = [
+  {
+    icon: Workflow,
+    title: "System framing first",
+    copy: "Clarify constraints, interfaces, and failure modes before implementation creates debt.",
+  },
+  {
+    icon: CheckCircle2,
+    title: "Delivery with control",
+    copy: "Ship in verified slices with measurable quality rather than relying on cleanup later.",
+  },
+  {
+    icon: Gauge,
+    title: "Performance is product quality",
+    copy: "Treat speed, responsiveness, and maintainability as part of the user experience.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Long-term engineering value",
+    copy: "Prefer systems that remain operable, legible, and adaptable as teams and scope grow.",
   },
 ];
 
 const capabilityGroups = [
   {
     title: "Frontend Systems",
+    signal: "Expert-led",
     blurb:
-      "High-fidelity interfaces with strict component architecture, measurable performance budgets, and maintainable state boundaries.",
+      "Interfaces designed with strong composition, explicit state boundaries, and measurable performance standards.",
     items: [
-      { name: "Next.js / React Architecture", score: 95 },
-      { name: "TypeScript Design", score: 92 },
-      { name: "Performance Engineering", score: 90 },
+      "Next.js and React architecture",
+      "TypeScript system design",
+      "Performance and accessibility standards",
     ],
   },
   {
     title: "Backend + Platform",
+    signal: "Production-proven",
     blurb:
-      "Services built with reliability in mind: explicit contracts, scalable runtime behavior, and clear observability for production confidence.",
+      "Services and infrastructure shaped around explicit contracts, predictable operations, and resilient runtime behavior.",
     items: [
-      { name: "Go Service Design", score: 91 },
-      { name: "API Contracts + Schemas", score: 93 },
-      { name: "Containerized Infrastructure", score: 89 },
+      "Go service design",
+      "API contracts and schemas",
+      "Containerized infrastructure",
     ],
   },
   {
     title: "Delivery Discipline",
+    signal: "Execution-critical",
     blurb:
-      "From architecture decisions to release governance, execution stays structured and verifiable across every phase.",
+      "Execution stays structured through governance, observability, and evidence-driven iteration from planning to release.",
     items: [
-      { name: "CI/CD + Release Strategy", score: 90 },
-      { name: "Security + Quality Gates", score: 88 },
-      { name: "Product Collaboration", score: 87 },
+      "CI/CD and release strategy",
+      "Security and quality gates",
+      "Product and engineering alignment",
     ],
   },
 ];
 
-const process = [
+const processSteps = [
   {
     step: "01",
     title: "Frame The System",
-    copy: "Clarify constraints, success criteria, and failure risks before implementation starts.",
+    copy: "Clarify product constraints, technical risks, and success criteria before implementation creates drift.",
   },
   {
     step: "02",
     title: "Design The Contracts",
-    copy: "Define boundaries between UI, API, and infrastructure so delivery stays predictable under change.",
+    copy: "Define boundaries across UI, API, and infrastructure so teams can move faster with less ambiguity.",
   },
   {
     step: "03",
     title: "Ship With Control",
-    copy: "Build in small verified slices with testing, observability, and performance checks wired in.",
+    copy: "Build in small verified slices with testing, observability, and release discipline integrated from the start.",
   },
   {
     step: "04",
     title: "Refine With Evidence",
-    copy: "Tighten UX and system behavior using telemetry, review loops, and production feedback.",
+    copy: "Use telemetry, review loops, and production learning to tighten system behavior and user experience.",
   },
 ];
 
-const featured = PORTFOLIO_DATA.projects.slice(0, 3);
+const featuredProjects = PORTFOLIO_DATA.projects.slice(0, 2);
+const aboutSignals = PORTFOLIO_DATA.pillars;
+const philosophy = PORTFOLIO_DATA.engineering.philosophy;
+
+const featuredMetrics: Record<string, Array<{ label: string; value: string }>> = {
+  labrago: [
+    { label: "Memory usage", value: "4x lower" },
+    { label: "Server overhead", value: "-40%" },
+    { label: "Latency", value: "<20ms p99" },
+  ],
+  "terraform-auto": [
+    { label: "Provisioning", value: "4 min" },
+    { label: "IaC coverage", value: "100%" },
+    { label: "Ops burden", value: "materially reduced" },
+  ],
+};
 
 export default function HomePage() {
+  const { profile } = PORTFOLIO_DATA;
+
   return (
-    <div className="relative pb-24 pt-8 md:pt-14">
-      <section className="grid gap-10 pt-16 md:grid-cols-[1.1fr_0.9fr] md:items-end md:gap-12 md:pt-24 section-divider">
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45 }}
-          className="space-y-7"
-        >
-          <div className="accent-kicker">
-            <span className="accent-dot pulse-fade" />
-            Senior Systems Engineer
-          </div>
-
-          <h1 className="max-w-2xl text-4xl font-extrabold leading-tight text-[var(--text-primary)] md:text-6xl md:leading-[1.06]">
-            Engineered digital products for teams that ship serious software.
-          </h1>
-
-          <p className="max-w-xl text-base leading-relaxed text-[var(--text-secondary)] md:text-lg">
-            I design and build production systems where frontend quality,
-            architecture clarity, and delivery speed are treated as one
-            problem. The result is software that scales without losing polish.
-          </p>
-
-          <div className="flex flex-wrap gap-3 pt-2">
-            <Link
-              href="/projects"
-              className="group inline-flex items-center gap-2 rounded-xl bg-[var(--accent)] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[var(--accent-strong)]"
-            >
-              Review Case Studies
-              <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-            </Link>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-xl border border-[var(--border-soft)] bg-[rgba(16,25,40,0.8)] px-6 py-3 text-sm font-semibold text-[var(--text-primary)] transition hover:border-[var(--border-strong)]"
-            >
-              Discuss An Engagement
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3 pt-4 md:grid-cols-4">
-            {metrics.map((item) => (
-              <div key={item.label} className="surface-soft rounded-xl p-3">
-                <div className="text-sm font-semibold text-[var(--text-secondary)]">
-                  {item.label}
-                </div>
-                <div className="mt-1 text-lg font-bold text-[var(--text-primary)]">
-                  {item.value}
-                </div>
-                <p className="mt-1 text-xs text-[var(--text-tertiary)]">{item.note}</p>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 24, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.55, delay: 0.08 }}
-          className="surface-elevated relative overflow-hidden rounded-2xl p-5 md:p-6"
-        >
-          <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[var(--accent-tint-strong)] blur-3xl" />
-
-          <div className="relative space-y-4">
-            <div className="flex items-center justify-between rounded-xl border border-[var(--border-soft)] bg-[rgba(11,19,33,0.84)] px-4 py-3">
-              <div>
-                <p className="text-xs uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
-                  Delivery Console
+    <div className="relative pb-40 pt-8 md:pb-48 md:pt-12">
+      <section aria-labelledby="hero-heading" className="section-shell section-divider pt-24 md:pt-40">
+        <div className="grid gap-16 xl:grid-cols-[minmax(0,1.05fr)_minmax(24rem,0.95fr)] xl:items-center xl:gap-24">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45 }}
+            className="space-y-14"
+          >
+            <div className="space-y-8">
+              <div className="flex flex-wrap items-center gap-3">
+                <p className="accent-kicker">
+                  <span className="accent-dot pulse-fade" />
+                  {profile.title}
                 </p>
-                <p className="mt-1 text-sm font-semibold text-[var(--text-primary)]">
-                  Product + Engineering Alignment
+                <span className="quiet-pill text-mono text-[11px] tracking-[0.16em] text-[var(--text-secondary)]">
+                  Selective 2026 engagements
+                </span>
+              </div>
+
+              <div className="space-y-5">
+                <h1 id="hero-heading" className="section-heading max-w-[9ch] text-balance">
+                  Build calmer systems.
+                </h1>
+                <p className="max-w-[28rem] text-[1.05rem] font-medium leading-8 text-[var(--primary)] md:text-[1.2rem]">
+                  Architecture, delivery, and frontend quality aligned from day one.
+                </p>
+                <p className="section-copy max-w-[38rem] text-[1.02rem] md:text-[1.12rem]">
+                  I design and deliver production systems where product surfaces,
+                  engineering decisions, and release discipline reinforce each other.
+                  The result is software that ships clearly, scales cleanly, and stays legible under pressure.
                 </p>
               </div>
-              <span className="text-mono text-xs text-[var(--ok)]">STABLE</span>
             </div>
 
-            <div className="grid gap-3">
-              {[
-                {
-                  icon: Layers,
-                  title: "Architecture Control",
-                  text: "Boundaries across UI, API, and platform layers",
-                },
-                {
-                  icon: Gauge,
-                  title: "Performance Discipline",
-                  text: "Budgets, profiling loops, and measurable delivery",
-                },
-                {
-                  icon: ShieldCheck,
-                  title: "Production Readiness",
-                  text: "Security and release gates integrated from day one",
-                },
-              ].map((item) => (
+            <div className="flex flex-wrap gap-3 pt-1">
+              <Link href="/projects" className="btn-primary group">
+                Review Case Studies
+                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+              </Link>
+              <Link href="/contact" className="btn-secondary">
+                Discuss An Engagement
+              </Link>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-3 md:gap-5">
+              {proofMetrics.map((item) => (
                 <div
-                  key={item.title}
-                  className="hover-lift surface-panel rounded-xl p-4"
+                  key={item.label}
+                  className="rounded-[1.5rem] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)] px-5 py-5"
                 >
-                  <div className="flex items-start gap-3">
-                    <div className="rounded-lg border border-[var(--border-soft)] bg-[rgba(14,24,40,0.9)] p-2 text-[var(--accent)]">
+                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
+                    {item.label}
+                  </p>
+                  <p className="mt-3 text-[2rem] font-semibold tracking-[-0.07em] text-[var(--text-primary)] md:text-[2.35rem]">
+                    {item.value}
+                  </p>
+                  <p className="mt-2 max-w-[15rem] text-sm leading-7 text-[var(--text-secondary)]">
+                    {item.note}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.aside
+            initial={{ opacity: 0, y: 24, scale: 0.985 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.55, delay: 0.08 }}
+            className="surface-elevated relative overflow-hidden rounded-[2.5rem] p-7 md:p-9"
+          >
+            <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.16),transparent)]" />
+
+            <div className="relative space-y-8">
+              <div className="flex items-start justify-between gap-5 border-b border-[rgba(255,255,255,0.08)] pb-6">
+                <div className="space-y-2">
+                  <p className="editorial-label">Operating Snapshot</p>
+                  <h2 className="max-w-[14ch] text-[1.65rem] font-semibold leading-[1.02] tracking-[-0.05em] text-[var(--text-primary)] text-balance">
+                    Engineering systems in production.
+                  </h2>
+                </div>
+                <span className="quiet-pill text-mono text-[11px] tracking-[0.18em] text-[var(--ok)]">
+                  Stable
+                </span>
+              </div>
+
+              <div className="rounded-[1.75rem] border border-[rgba(255,255,255,0.08)] bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.02))] px-5 py-5">
+                <p className="editorial-label">Current Focus</p>
+                <p className="mt-3 max-w-[24rem] text-[1.1rem] leading-8 text-[var(--text-primary)]">
+                  Designing product surfaces, system contracts, and release paths as one operating model.
+                </p>
+              </div>
+
+              <div className="space-y-1">
+                {heroSignals.map((item) => (
+                  <div key={item.title} className="console-row">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.025)] text-[var(--primary)]">
                       <item.icon className="h-4 w-4" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-[var(--text-primary)]">
+                      <p className="text-[1rem] font-semibold tracking-[-0.02em] text-[var(--text-primary)]">
                         {item.title}
                       </p>
-                      <p className="mt-1 text-xs leading-relaxed text-[var(--text-secondary)]">
+                      <p className="mt-1 text-sm leading-7 text-[var(--text-secondary)]">
                         {item.text}
                       </p>
                     </div>
                   </div>
+                ))}
+              </div>
+
+              <div className="grid gap-5 border-t border-[rgba(255,255,255,0.08)] pt-6 sm:grid-cols-2">
+                <div>
+                  <p className="editorial-label">Collaboration</p>
+                  <p className="mt-2 text-sm leading-7 text-[var(--text-secondary)]">
+                    EU and US overlap with async-first delivery discipline.
+                  </p>
                 </div>
-              ))}
-            </div>
-
-            <div className="surface-soft rounded-xl p-4">
-              <div className="mb-2 flex items-center justify-between text-xs uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
-                <span>Current Focus</span>
-                <span className="text-[var(--text-secondary)]">Q1-Q2 2026</span>
-              </div>
-              <div className="space-y-2 text-sm text-[var(--text-secondary)]">
-                <p>1. Product-grade frontend architecture for scale</p>
-                <p>2. Infrastructure automation and safer release cadence</p>
-                <p>3. Faster decision loops from instrumentation</p>
+                <div>
+                  <p className="editorial-label">Operating Window</p>
+                  <p className="mt-2 text-mono text-xs uppercase tracking-[0.16em] text-[var(--text-secondary)]">
+                    Q1-Q2 2026
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        </motion.div>
-      </section>
-
-      <section className="mt-20 section-divider">
-        <div className="surface-panel rounded-2xl p-6 md:p-8">
-          <div className="grid gap-4 md:grid-cols-4">
-            {[
-              {
-                icon: Workflow,
-                title: "Systems Thinking",
-                copy: "Every feature maps to architecture, operations, and user outcomes.",
-              },
-              {
-                icon: LineChart,
-                title: "Outcome Driven",
-                copy: "Decisions are backed by performance data and delivery metrics.",
-              },
-              {
-                icon: Terminal,
-                title: "Technical Depth",
-                copy: "Comfortable from frontend interaction detail to infrastructure controls.",
-              },
-              {
-                icon: CheckCircle2,
-                title: "Execution Quality",
-                copy: "Clean implementation standards with disciplined shipping behavior.",
-              },
-            ].map((item) => (
-              <article key={item.title} className="rounded-xl border border-[var(--border-soft)] bg-[rgba(10,17,30,0.86)] p-4">
-                <item.icon className="h-4 w-4 text-[var(--accent)]" />
-                <h3 className="mt-3 text-sm font-semibold text-[var(--text-primary)]">
-                  {item.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--text-secondary)]">
-                  {item.copy}
-                </p>
-              </article>
-            ))}
-          </div>
+          </motion.aside>
         </div>
       </section>
 
-      <section className="mt-20 section-divider">
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-          <div>
+      <section aria-labelledby="principles-heading" className="section-shell section-divider">
+        <div className="mb-12 max-w-2xl space-y-5 md:mb-16">
+          <p className="accent-kicker">
+            <span className="accent-dot" /> Working Principles
+          </p>
+          <h2 id="principles-heading" className="section-title max-w-3xl text-balance">
+            Quiet structure, clear thinking, and engineering decisions that stay useful under load.
+          </h2>
+        </div>
+
+        <div className="grid gap-x-10 gap-y-12 md:grid-cols-2 xl:grid-cols-4">
+          {principles.map((item, index) => (
+            <motion.article
+              key={item.title}
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.35, delay: index * 0.05 }}
+              className="space-y-4 border-t border-[rgba(255,255,255,0.08)] pt-5"
+            >
+              <item.icon className="h-4 w-4 text-[var(--primary)]" />
+              <h3 className="text-[1.06rem] font-semibold tracking-[-0.02em] text-[var(--text-primary)]">
+                {item.title}
+              </h3>
+              <p className="max-w-[19rem] text-sm leading-7 text-[var(--text-secondary)]">
+                {item.copy}
+              </p>
+            </motion.article>
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="featured-heading" className="section-shell section-divider">
+        <div className="mb-14 flex flex-wrap items-end justify-between gap-6 md:mb-20">
+          <div className="space-y-5">
             <p className="accent-kicker">
               <span className="accent-dot" /> Featured Work
             </p>
-            <h2 className="mt-4 max-w-2xl text-3xl font-bold text-[var(--text-primary)] md:text-4xl">
-              Case-study previews focused on architecture and measurable outcomes.
+            <h2 id="featured-heading" className="section-title max-w-4xl text-balance">
+              Case studies where business outcomes, architecture, and delivery rigor are visible at a glance.
             </h2>
+            <p className="section-copy max-w-2xl">
+              Selected work where the proof is not only what shipped, but how the system was structured to perform,
+              scale, and remain operable over time.
+            </p>
           </div>
+
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)] transition hover:text-[var(--accent-ink)]"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent-ink)] transition hover:text-[var(--text-primary)]"
           >
-            Explore Full Project Archive <ArrowRight className="h-4 w-4" />
+            View all work
+            <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
 
-        <div className="space-y-5">
-          {featured.map((project, index) => (
-            <motion.article
-              key={project.id}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.4, delay: index * 0.06 }}
-              className="surface-panel hover-lift grid overflow-hidden rounded-2xl md:grid-cols-[1.3fr_0.7fr]"
-            >
-              <div className="p-6 md:p-8">
-                <div className="mb-3 inline-flex rounded-full border border-[var(--border-soft)] bg-[var(--accent-tint)] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--accent-ink)]">
-                  {project.category}
-                </div>
-                <h3 className="text-2xl font-bold text-[var(--text-primary)]">
-                  {project.title}
-                </h3>
-                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--text-secondary)] md:text-base">
-                  {project.summary}
-                </p>
+        <div className="space-y-10 md:space-y-12">
+          {featuredProjects.map((project, index) => {
+            const highlights = project.results?.highlights?.slice(0, 2) ?? [];
+            const metrics = featuredMetrics[project.id] ?? [];
+            const isPrimary = index === 0;
 
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {project.stack.slice(0, 6).map((stackItem) => (
-                    <span
-                      key={stackItem}
-                      className="rounded-md border border-[var(--border-soft)] bg-[rgba(16,24,39,0.82)] px-2.5 py-1 text-xs text-[var(--text-secondary)]"
-                    >
-                      {stackItem}
-                    </span>
-                  ))}
+            return (
+              <motion.article
+                key={project.id}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.16 }}
+                transition={{ duration: 0.4, delay: index * 0.06 }}
+                className={
+                  isPrimary
+                    ? "surface-elevated hover-lift grid gap-10 rounded-[2.35rem] p-7 md:p-9 xl:grid-cols-[minmax(0,1.16fr)_18rem] xl:gap-12"
+                    : "grid gap-10 border-y border-[rgba(255,255,255,0.08)] py-10 md:py-12 xl:grid-cols-[minmax(0,1.16fr)_18rem] xl:gap-12"
+                }
+              >
+                <div className="space-y-7">
+                  <div className="space-y-4">
+                    <span className="quiet-pill">{project.category}</span>
+                    <h3 className="max-w-[14ch] text-[2.15rem] font-semibold leading-[0.98] tracking-[-0.06em] text-[var(--text-primary)] text-balance md:text-[2.85rem]">
+                      {project.title}
+                    </h3>
+                    <p className="max-w-2xl text-[1rem] leading-8 text-[var(--text-secondary)]">
+                      {project.summary}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2.5">
+                    {project.stack.slice(0, 4).map((stackItem) => (
+                      <span
+                        key={stackItem}
+                        className="rounded-full border border-[rgba(255,255,255,0.08)] px-3 py-1.5 text-xs text-[var(--text-secondary)]"
+                      >
+                        {stackItem}
+                      </span>
+                    ))}
+                  </div>
                 </div>
+
+                <div className="space-y-7 border-t border-[rgba(255,255,255,0.08)] pt-7 xl:border-l xl:border-t-0 xl:pl-8 xl:pt-0">
+                  <div className="space-y-4">
+                    <p className="editorial-label">Outcome Snapshot</p>
+                    <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
+                      {metrics.map((metric) => (
+                        <div key={metric.label} className="space-y-1.5">
+                          <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
+                            {metric.label}
+                          </p>
+                          <p className="text-[1.2rem] font-semibold tracking-[-0.03em] text-[var(--text-primary)]">
+                            {metric.value}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="space-y-3 border-t border-[rgba(255,255,255,0.08)] pt-5 text-sm leading-7 text-[var(--text-secondary)]">
+                    {highlights.length > 0 ? (
+                      highlights.map((highlight) => (
+                        <p key={highlight} className="flex gap-3">
+                          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--primary)]" />
+                          <span>{highlight}</span>
+                        </p>
+                      ))
+                    ) : (
+                      <p>Built with focus on maintainability, delivery speed, and strong production discipline.</p>
+                    )}
+                  </div>
+
+                  <Link
+                    href="/projects"
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--text-primary)] transition hover:text-[var(--accent-ink)]"
+                  >
+                    Open case study
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
+              </motion.article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section aria-labelledby="capabilities-heading" className="section-shell section-divider">
+        <div className="mb-14 grid gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(18rem,0.7fr)] lg:items-end md:mb-20">
+          <div className="space-y-5">
+            <p className="accent-kicker">
+              <span className="accent-dot" /> Capabilities
+            </p>
+            <h2 id="capabilities-heading" className="section-title max-w-3xl text-balance">
+              Technical depth presented as structured capability rather than a badge cloud.
+            </h2>
+          </div>
+          <p className="section-copy max-w-xl">
+            The emphasis is on systems that can be reasoned about, shipped with confidence, and improved without creating hidden operational drag.
+          </p>
+        </div>
+
+        <div className="grid gap-x-10 gap-y-12 lg:grid-cols-3">
+          {capabilityGroups.map((group, index) => (
+            <motion.article
+              key={group.title}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.18 }}
+              transition={{ duration: 0.38, delay: index * 0.05 }}
+              className="space-y-5 border-t border-[rgba(255,255,255,0.08)] pt-6"
+            >
+              <div className="flex items-center justify-between gap-4">
+                <h3 className="text-[1.18rem] font-semibold tracking-[-0.03em] text-[var(--text-primary)]">
+                  {group.title}
+                </h3>
+                <span className="quiet-pill">{group.signal}</span>
               </div>
 
-              <div className="border-t border-[var(--border-soft)] bg-[rgba(10,17,28,0.88)] p-6 md:border-l md:border-t-0 md:p-8">
-                <p className="text-xs uppercase tracking-[0.15em] text-[var(--text-tertiary)]">
-                  Delivery Signals
-                </p>
-                <div className="mt-4 space-y-3 text-sm text-[var(--text-secondary)]">
-                  {project.results?.highlights?.slice(0, 3).map((highlight) => (
-                    <p key={highlight} className="flex gap-2">
-                      <span className="mt-1 h-2 w-2 rounded-full bg-[var(--accent)]" />
-                      {highlight}
-                    </p>
-                  ))}
-                  {(!project.results?.highlights ||
-                    project.results.highlights.length === 0) && (
-                    <p className="text-sm text-[var(--text-secondary)]">
-                      Built with focus on maintainability, delivery speed, and
-                      strong production discipline.
-                    </p>
-                  )}
-                </div>
-                <Link
-                  href="/projects"
-                  className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[var(--text-primary)] transition hover:text-[var(--accent)]"
-                >
-                  Open Case Study
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
+              <p className="text-sm leading-8 text-[var(--text-secondary)]">{group.blurb}</p>
+
+              <div className="flex items-center justify-between text-xs uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
+                <span>Capability confidence</span>
+                <span className="capability-mark" aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                </span>
+              </div>
+
+              <div className="space-y-3 pt-1">
+                {group.items.map((item) => (
+                  <div key={item} className="flex items-center gap-3 text-sm text-[var(--text-secondary)]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[var(--primary)]" />
+                    {item}
+                  </div>
+                ))}
               </div>
             </motion.article>
           ))}
         </div>
       </section>
 
-      <section className="mt-20 section-divider">
-        <div className="mb-8">
+      <section aria-labelledby="process-heading" className="section-shell section-divider">
+        <div className="mb-14 max-w-3xl space-y-5 md:mb-20">
           <p className="accent-kicker">
-            <span className="accent-dot" /> Capabilities
+            <span className="accent-dot" /> Process
           </p>
-          <h2 className="mt-4 text-3xl font-bold text-[var(--text-primary)] md:text-4xl">
-            Technical depth presented as operating signals, not badge clouds.
+          <h2 id="process-heading" className="section-title text-balance">
+            A working method built for clarity, controlled execution, and production reality.
           </h2>
+          <p className="section-copy max-w-2xl">
+            The process is designed to reduce ambiguity early, protect delivery quality during execution, and refine the product using evidence rather than assumptions.
+          </p>
         </div>
 
-        <div className="grid gap-4 lg:grid-cols-3">
-          {capabilityGroups.map((group) => (
-            <article key={group.title} className="surface-panel hover-lift rounded-2xl p-5 md:p-6">
-              <h3 className="text-lg font-semibold text-[var(--text-primary)]">{group.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-[var(--text-secondary)]">
-                {group.blurb}
+        <div className="grid gap-x-8 gap-y-12 md:grid-cols-2 xl:grid-cols-4">
+          {processSteps.map((stage, index) => (
+            <motion.article
+              key={stage.step}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.22 }}
+              transition={{ duration: 0.34, delay: index * 0.05 }}
+              className="space-y-4 border-t border-[rgba(255,255,255,0.08)] pt-6"
+            >
+              <p className="text-mono text-xs uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
+                Step {stage.step}
               </p>
-              <div className="mt-5 space-y-4">
-                {group.items.map((item) => (
-                  <div key={item.name}>
-                    <div className="mb-2 flex items-center justify-between text-xs">
-                      <span className="text-[var(--text-secondary)]">{item.name}</span>
-                      <span className="text-mono text-[var(--text-tertiary)]">{item.score}</span>
-                    </div>
-                    <div className="signal-bar">
-                      <span style={{ width: `${item.score}%` }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </article>
+              <h3 className="text-[1.1rem] font-semibold tracking-[-0.03em] text-[var(--text-primary)]">
+                {stage.title}
+              </h3>
+              <p className="text-sm leading-7 text-[var(--text-secondary)]">{stage.copy}</p>
+            </motion.article>
           ))}
         </div>
       </section>
 
-      <section className="mt-20 section-divider">
-        <div className="surface-panel rounded-2xl p-6 md:p-8">
-          <div className="mb-8 flex items-end justify-between gap-4">
-            <div>
+      <section aria-labelledby="about-heading" className="section-shell section-divider">
+        <div className="grid gap-16 xl:grid-cols-[minmax(0,1.08fr)_minmax(21rem,0.82fr)] xl:items-start">
+          <div className="space-y-10">
+            <div className="space-y-5">
               <p className="accent-kicker">
-                <span className="accent-dot" /> Process
+                <span className="accent-dot" /> Positioning
               </p>
-              <h2 className="mt-4 text-3xl font-bold text-[var(--text-primary)] md:text-4xl">
-                A disciplined way of working from first brief to stable release.
+              <h2 id="about-heading" className="section-title max-w-3xl text-balance">
+                Clean modern product execution with systems-level engineering credibility.
               </h2>
+              <p className="section-copy max-w-2xl">
+                The strongest signal is consistent execution. This portfolio is structured to reflect how I work on real products: deliberate architecture, measurable quality, and clear communication with product stakeholders.
+              </p>
             </div>
-            <Blocks className="hidden h-6 w-6 text-[var(--accent)] md:block" />
-          </div>
 
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {process.map((stage) => (
-              <article key={stage.step} className="rounded-xl border border-[var(--border-soft)] bg-[rgba(12,19,32,0.85)] p-4">
-                <p className="text-mono text-xs text-[var(--accent)]">STEP {stage.step}</p>
-                <h3 className="mt-2 text-base font-semibold text-[var(--text-primary)]">
-                  {stage.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--text-secondary)]">
-                  {stage.copy}
-                </p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="mt-20 section-divider">
-        <div className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">
-          <article className="surface-panel rounded-2xl p-6 md:p-8">
-            <p className="accent-kicker">
-              <span className="accent-dot" /> Proof Layer
-            </p>
-            <h2 className="mt-4 text-3xl font-bold text-[var(--text-primary)] md:text-4xl">
-              Built to inspire confidence before the first call.
-            </h2>
-            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[var(--text-secondary)] md:text-base">
-              The strongest signal is consistent execution. This portfolio is
-              structured to reflect how I work on real products: deliberate
-              architecture, measurable quality, and clear communication with
-              product stakeholders.
-            </p>
-
-            <div className="mt-6 grid gap-3 sm:grid-cols-3">
-              {[
-                { label: "Architecture-first delivery", value: "Standard" },
-                { label: "Accessibility + performance", value: "Built-in" },
-                { label: "Release governance", value: "Disciplined" },
-              ].map((signal) => (
-                <div
-                  key={signal.label}
-                  className="rounded-xl border border-[var(--border-soft)] bg-[rgba(11,18,29,0.82)] p-4"
-                >
-                  <p className="text-xs uppercase tracking-[0.13em] text-[var(--text-tertiary)]">
-                    {signal.label}
+            <div className="grid gap-8 sm:grid-cols-3">
+              {aboutSignals.map((signal) => (
+                <div key={signal.title} className="space-y-2 border-l border-[rgba(255,255,255,0.08)] pl-4">
+                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
+                    {signal.title}
                   </p>
-                  <p className="mt-2 text-lg font-semibold text-[var(--text-primary)]">
-                    {signal.value}
-                  </p>
+                  <p className="text-sm leading-7 text-[var(--text-secondary)]">{signal.desc}</p>
                 </div>
               ))}
             </div>
-          </article>
+          </div>
 
-          <article className="surface-elevated rounded-2xl p-6 md:p-8">
-            <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-tertiary)]">
-              About This Practice
-            </p>
-            <h3 className="mt-3 text-2xl font-bold text-[var(--text-primary)]">
-              Product-minded engineer with systems standards.
+          <article className="surface-panel space-y-5 rounded-[2rem] p-7 md:p-8">
+            <p className="editorial-label">About This Practice</p>
+            <h3 className="text-[1.9rem] font-semibold leading-[1.02] tracking-[-0.05em] text-[var(--text-primary)] text-balance">
+              Product-minded systems engineering with a high quality bar.
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-[var(--text-secondary)] md:text-base">
-              I am best suited for products that need both technical rigor and
-              interface quality. I care about maintainability, fast iteration,
-              and shipping software that teams can trust long after launch.
+            <p className="text-[1rem] leading-8 text-[var(--text-secondary)]">
+              {profile.summary}
             </p>
-
-            <div className="mt-6 space-y-2 text-sm text-[var(--text-secondary)]">
-              <p>1. Clear technical decisions with explicit tradeoffs</p>
-              <p>2. Reliable communication across product and engineering</p>
-              <p>3. Selective engagements where quality bar matters</p>
+            <div className="space-y-3 border-t border-[rgba(255,255,255,0.08)] pt-5 text-sm leading-7 text-[var(--text-secondary)]">
+              {philosophy.map((item) => (
+                <p key={item.title}>
+                  <span className="font-medium text-[var(--text-primary)]">{item.title}:</span> {item.text}
+                </p>
+              ))}
             </div>
           </article>
         </div>
       </section>
 
-      <section className="mt-20">
-        <div className="surface-elevated relative overflow-hidden rounded-2xl p-7 md:p-10">
-          <div className="absolute -left-28 -top-24 h-56 w-56 rounded-full bg-[var(--accent-soft)] blur-3xl" />
-          <div className="relative grid gap-6 md:grid-cols-[1.1fr_0.9fr] md:items-center">
-            <div>
-              <p className="accent-kicker">
-                <span className="accent-dot" /> Final Step
-              </p>
-              <h2 className="mt-4 text-3xl font-bold text-[var(--text-primary)] md:text-4xl">
-                If the product is high-stakes, let&apos;s talk with precision.
-              </h2>
-              <p className="mt-3 max-w-xl text-sm leading-relaxed text-[var(--text-secondary)] md:text-base">
-                Share the system, product, or delivery challenge. I will respond
-                with a concrete technical perspective and next-step plan.
-              </p>
-            </div>
+      <section aria-labelledby="final-cta-heading" className="section-shell">
+        <div className="mx-auto max-w-4xl border-t border-[rgba(255,255,255,0.08)] pt-16 text-center md:pt-20">
+          <div className="space-y-6">
+            <p className="accent-kicker justify-center">
+              <span className="accent-dot" /> Final Step
+            </p>
+            <h2 id="final-cta-heading" className="mx-auto max-w-3xl text-[2.8rem] font-semibold leading-[0.98] tracking-[-0.06em] text-[var(--text-primary)] text-balance md:text-[4.2rem]">
+              If the product is high-stakes, let&apos;s talk with precision.
+            </h2>
+            <p className="mx-auto max-w-2xl text-[1rem] leading-8 text-[var(--text-secondary)]">
+              Share the system, product, or delivery challenge. I will respond with a concrete technical perspective and a practical next-step plan.
+            </p>
+          </div>
 
-            <div className="flex flex-wrap gap-3 md:justify-end">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 rounded-xl bg-[var(--accent)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--accent-strong)]"
-              >
-                <Mail className="h-4 w-4" />
-                Start A Conversation
-              </Link>
-              <Link
-                href="/projects"
-                className="inline-flex items-center gap-2 rounded-xl border border-[var(--border-soft)] bg-[rgba(10,17,29,0.85)] px-5 py-3 text-sm font-semibold text-[var(--text-primary)] transition hover:border-[var(--border-strong)]"
-              >
-                <BriefcaseBusiness className="h-4 w-4" />
-                See Project Depth
-              </Link>
-            </div>
+          <div className="flex flex-wrap justify-center gap-3 pt-8">
+            <Link href="/contact" className="btn-primary">
+              <Mail className="h-4 w-4" />
+              Start A Conversation
+            </Link>
+            <Link href="/projects" className="btn-secondary">
+              <BriefcaseBusiness className="h-4 w-4" />
+              See Project Depth
+            </Link>
           </div>
         </div>
       </section>

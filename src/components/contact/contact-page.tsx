@@ -5,44 +5,46 @@ import ContactForm from "./contact-form";
 
 export default function ContactPage() {
   return (
-    <div className="pb-24 pt-28 md:pt-34">
-      <section className="section-divider">
-        <div className="grid gap-7 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-          <div>
+    <div className="pb-32 pt-10 md:pb-36 md:pt-14">
+      <section className="section-shell section-divider pt-24 md:pt-30">
+        <div className="grid gap-14 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
+          <div className="space-y-6">
             <p className="accent-kicker">
               <span className="accent-dot" /> Contact
             </p>
-            <h1 className="mt-4 max-w-3xl text-4xl font-extrabold leading-tight text-[var(--text-primary)] md:text-5xl md:leading-[1.08]">
+            <h1 className="section-heading max-w-3xl">
               Start with a real technical brief, not a vague request.
             </h1>
-            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[var(--text-secondary)] md:text-base">
+            <p className="section-copy max-w-2xl text-[1.02rem] md:text-[1.08rem]">
               Share the product context, system constraints, and expected
               outcomes. You will receive a focused response with execution
               direction, tradeoffs, and a practical next step.
             </p>
           </div>
 
-          <div className="surface-panel rounded-2xl p-5 md:p-6">
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {[
-                { icon: MessageSquare, label: "Response", value: "Structured" },
-                { icon: Layers, label: "Scope", value: "Systems + UX" },
-                { icon: ShieldCheck, label: "Quality Bar", value: "High" },
-                { icon: Clock3, label: "Timezone", value: "EU/US" },
-              ].map((item) => (
-                <article key={item.label} className="surface-soft rounded-xl p-3">
-                  <item.icon className="h-4 w-4 text-[var(--accent)]" />
-                  <p className="mt-2 text-xs text-[var(--text-tertiary)]">{item.label}</p>
-                  <p className="text-base font-semibold text-[var(--text-primary)]">{item.value}</p>
-                </article>
-              ))}
-            </div>
+          <div className="grid gap-6 border-t border-[rgba(120,146,186,0.12)] pt-8 sm:grid-cols-2 xl:grid-cols-4">
+            {[
+              { icon: MessageSquare, label: "Response", value: "Structured" },
+              { icon: Layers, label: "Scope", value: "Systems + UX" },
+              { icon: ShieldCheck, label: "Quality Bar", value: "High" },
+              { icon: Clock3, label: "Timezone", value: "EU/US" },
+            ].map((item) => (
+              <div key={item.label} className="space-y-2">
+                <item.icon className="h-4 w-4 text-[var(--accent)]" />
+                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
+                  {item.label}
+                </p>
+                <p className="text-[1.8rem] font-bold tracking-[-0.03em] text-[var(--text-primary)]">
+                  {item.value}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="mt-16">
-        <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+      <section className="section-shell">
+        <div className="grid gap-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-start">
           <ContactSidebar />
           <ContactForm />
         </div>

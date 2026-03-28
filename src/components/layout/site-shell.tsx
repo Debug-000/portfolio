@@ -49,7 +49,7 @@ function SiteShellInner({ children }: { children: React.ReactNode }) {
 
       <NavBar />
 
-      <main className="relative z-10 mx-auto max-w-7xl px-5 md:px-6">
+      <main className="relative z-10 mx-auto max-w-[82rem] px-5 md:px-6 lg:px-8">
         <AnimatePresence mode="wait">
           <motion.div
             key={pathname}

@@ -10,7 +10,7 @@ import { useTerminal } from "@/components/terminal/terminal-context";
 const AccentSwitcher = dynamic(() => import("./accent-switcher"), {
   ssr: false,
   loading: () => (
-    <div className="h-10 w-10 rounded-lg border border-[var(--border-soft)] bg-[rgba(12,20,34,0.9)] md:w-20" />
+    <div className="h-9 w-9 rounded-xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] md:w-16" />
   ),
 });
 
@@ -26,21 +26,18 @@ export default function NavBar() {
   ];
 
   return (
-    <nav className="fixed left-0 right-0 top-0 z-50 border-b border-[var(--border-soft)] bg-[rgba(7,13,24,0.78)] backdrop-blur-xl">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-3 text-[var(--text-primary)]"
-        >
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-[rgba(16,27,44,0.9)] text-sm font-bold text-[var(--accent)]">
+    <nav className="fixed left-0 right-0 top-0 z-50 border-b border-[rgba(255,255,255,0.06)] bg-[rgba(18,18,18,0.62)] backdrop-blur-2xl">
+      <div className="mx-auto flex h-16 max-w-[88rem] items-center justify-between gap-4 px-5 md:px-7 lg:px-10">
+        <Link href="/" className="inline-flex min-w-0 items-center gap-3 text-[var(--text-primary)]">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] text-sm font-semibold text-[var(--primary)]">
             E
           </span>
-          <span className="text-sm font-semibold uppercase tracking-[0.19em] md:text-base">
+          <span className="truncate text-[0.82rem] font-semibold uppercase tracking-[0.22em] text-[var(--text-primary)] md:text-[0.92rem]">
             Elisjon.dev
           </span>
         </Link>
 
-        <div className="hidden items-center gap-7 text-sm md:flex">
+        <div className="hidden items-center gap-8 text-sm md:flex">
           {items.map((item) => (
             <Link
               key={item.href}
@@ -48,7 +45,7 @@ export default function NavBar() {
               className={[
                 "border-b pb-1 transition",
                 pathname === item.href
-                  ? "border-[var(--accent)] text-[var(--text-primary)]"
+                  ? "border-[var(--primary)] text-[var(--text-primary)]"
                   : "border-transparent text-[var(--text-secondary)] hover:text-[var(--text-primary)]",
               ].join(" ")}
             >
@@ -57,21 +54,24 @@ export default function NavBar() {
           ))}
         </div>
 
-        <div className="flex items-center gap-3">
-          <AccentSwitcher />
+        <div className="flex items-center gap-2 md:gap-3">
+          <div className="hidden text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--text-tertiary)] xl:inline-flex">
+            Available for select engagements
+          </div>
+
+          <div className="opacity-80 hover:opacity-100">
+            <AccentSwitcher />
+          </div>
 
           <button
             onClick={() => openTerminal(pathname)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-[rgba(12,20,34,0.9)] text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
             title="Switch to Terminal Mode"
           >
             <Terminal className="h-4 w-4" />
           </button>
 
-          <Link
-            href="/contact"
-            className="hidden rounded-lg border border-[var(--border-soft)] bg-[rgba(14,24,40,0.88)] px-4 py-2.5 text-sm font-semibold text-[var(--text-primary)] transition hover:border-[var(--border-strong)] md:inline-flex"
-          >
+          <Link href="/contact" className="btn-secondary hidden px-4 py-2.5 text-sm md:inline-flex">
             Book Intro Call
           </Link>
         </div>

@@ -48,73 +48,68 @@ export default function ProjectsPage(): JSX.Element {
   }, [filter, search]);
 
   return (
-    <div className="pb-24 pt-28 md:pt-34">
-      <section className="section-divider">
+    <div className="pb-32 pt-10 md:pb-36 md:pt-14">
+      <section className="section-shell section-divider pt-24 md:pt-30">
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.42 }}
-          className="grid gap-7 lg:grid-cols-[1.1fr_0.9fr] lg:items-end"
+          className="grid gap-14 lg:grid-cols-[1.08fr_0.92fr] lg:items-end"
         >
-          <div>
+          <div className="space-y-6">
             <p className="accent-kicker">
               <span className="accent-dot" /> Projects Archive
             </p>
-            <h1 className="mt-4 max-w-3xl text-4xl font-extrabold leading-tight text-[var(--text-primary)] md:text-5xl md:leading-[1.08]">
+            <h1 className="section-heading max-w-3xl">
               Case studies that show architecture judgment and execution depth.
             </h1>
-            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[var(--text-secondary)] md:text-base">
+            <p className="section-copy max-w-2xl text-[1.02rem] md:text-[1.08rem]">
               Each project is documented as a system-level outcome: constraints,
               design decisions, stack composition, and delivery signals. This is
               not template work. It is production-facing engineering.
             </p>
           </div>
 
-          <div className="surface-panel rounded-2xl p-5 md:p-6">
-            <div className="grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
-              {[
-                {
-                  icon: BriefcaseBusiness,
-                  label: "Case Studies",
-                  value: String(PORTFOLIO_DATA.projects.length),
-                },
-                {
-                  icon: Filter,
-                  label: "Focus Tags",
-                  value: String(TAGS.length - 1),
-                },
-                {
-                  icon: BarChart3,
-                  label: "Proof Driven",
-                  value: "Yes",
-                },
-                {
-                  icon: Search,
-                  label: "Discoverability",
-                  value: "High",
-                },
-              ].map((metric) => (
-                <article
-                  key={metric.label}
-                  className="surface-soft rounded-xl p-3"
-                >
-                  <metric.icon className="h-4 w-4 text-[var(--accent)]" />
-                  <p className="mt-2 text-xs text-[var(--text-tertiary)]">
-                    {metric.label}
-                  </p>
-                  <p className="text-lg font-semibold text-[var(--text-primary)]">
-                    {metric.value}
-                  </p>
-                </article>
-              ))}
-            </div>
+          <div className="grid gap-6 border-t border-[rgba(120,146,186,0.12)] pt-8 sm:grid-cols-2 xl:grid-cols-4">
+            {[
+              {
+                icon: BriefcaseBusiness,
+                label: "Case Studies",
+                value: String(PORTFOLIO_DATA.projects.length),
+              },
+              {
+                icon: Filter,
+                label: "Focus Tags",
+                value: String(TAGS.length - 1),
+              },
+              {
+                icon: BarChart3,
+                label: "Proof Driven",
+                value: "Yes",
+              },
+              {
+                icon: Search,
+                label: "Discoverability",
+                value: "High",
+              },
+            ].map((metric) => (
+              <div key={metric.label} className="space-y-2">
+                <metric.icon className="h-4 w-4 text-[var(--accent)]" />
+                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
+                  {metric.label}
+                </p>
+                <p className="text-[1.8rem] font-bold tracking-[-0.03em] text-[var(--text-primary)]">
+                  {metric.value}
+                </p>
+              </div>
+            ))}
           </div>
         </motion.div>
       </section>
 
-      <section className="mt-16 section-divider">
-        <div className="surface-panel rounded-2xl p-5 md:p-6">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+      <section className="section-shell section-divider">
+        <div className="rounded-[1.75rem] border border-[rgba(120,146,186,0.1)] bg-[rgba(11,18,30,0.16)] p-6 md:p-7">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex flex-wrap gap-2.5">
               {TAGS.map((tag) => (
                 <button
@@ -123,10 +118,10 @@ export default function ProjectsPage(): JSX.Element {
                   onClick={() => setFilter(tag)}
                   aria-pressed={filter === tag}
                   className={cn(
-                    "rounded-full border px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] transition",
+                    "rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] transition",
                     filter === tag
-                      ? "border-[var(--border-strong)] bg-[var(--accent-tint-strong)] text-[var(--text-primary)]"
-                      : "border-[var(--border-soft)] bg-[rgba(12,19,33,0.7)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]",
+                      ? "border-[var(--border-strong)] bg-[rgba(var(--accent-rgb),0.12)] text-[var(--text-primary)]"
+                      : "border-[rgba(120,146,186,0.12)] bg-[rgba(10,17,29,0.16)] text-[var(--text-secondary)] hover:border-[rgba(132,170,236,0.22)] hover:text-[var(--text-primary)]",
                   )}
                 >
                   {tag}
@@ -134,14 +129,12 @@ export default function ProjectsPage(): JSX.Element {
               ))}
             </div>
 
-            <div className="relative w-full lg:w-84">
-              <Search
-                className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-tertiary)]"
-              />
+            <div className="relative w-full lg:w-[24rem]">
+              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-tertiary)]" />
               <input
                 type="text"
                 placeholder="Search by title, category, or summary"
-                className="w-full rounded-xl border border-[var(--border-soft)] bg-[rgba(11,18,30,0.82)] py-2.5 pl-10 pr-4 text-sm text-[var(--text-primary)] outline-none transition placeholder:text-[var(--text-tertiary)] focus:border-[var(--border-strong)]"
+                className="w-full rounded-[1rem] border border-[rgba(120,146,186,0.14)] bg-[rgba(10,17,29,0.24)] py-3 pl-11 pr-4 text-sm text-[var(--text-primary)] outline-none transition placeholder:text-[var(--text-tertiary)] focus:border-[var(--border-strong)]"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
@@ -150,8 +143,8 @@ export default function ProjectsPage(): JSX.Element {
         </div>
       </section>
 
-      <section className="mt-16">
-        <div className="space-y-8">
+      <section className="section-shell">
+        <div className="space-y-10">
           {filtered.map((project, index) => (
             <ProjectCard
               key={project.id}
@@ -162,8 +155,8 @@ export default function ProjectsPage(): JSX.Element {
           ))}
 
           {filtered.length === 0 && (
-            <div className="surface-panel rounded-2xl p-8 text-center">
-              <p className="text-sm text-[var(--text-secondary)]">
+            <div className="rounded-[1.75rem] border border-[rgba(120,146,186,0.1)] bg-[rgba(11,18,30,0.16)] p-10 text-center">
+              <p className="text-sm leading-7 text-[var(--text-secondary)]">
                 No projects match this filter yet. Try a different tag or wider
                 search term.
               </p>

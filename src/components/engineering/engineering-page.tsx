@@ -44,7 +44,14 @@ const readinessChecklist = [
 ];
 
 function capabilityWeight(category: string, index: number) {
-  const base = category === "frontend" ? 90 : category === "backend" ? 88 : category === "devops" ? 86 : 82;
+  const base =
+    category === "frontend"
+      ? 90
+      : category === "backend"
+        ? 88
+        : category === "devops"
+          ? 86
+          : 82;
   return Math.max(72, base - index * 4);
 }
 
@@ -52,59 +59,62 @@ export default function EngineeringPage() {
   const { logic, philosophy, skills } = PORTFOLIO_DATA.engineering;
 
   return (
-    <div className="pb-24 pt-28 md:pt-34">
-      <section className="section-divider">
-        <div className="grid gap-7 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-          <div>
+    <div className="pb-32 pt-10 md:pb-36 md:pt-14">
+      <section className="section-shell section-divider pt-24 md:pt-30">
+        <div className="grid gap-14 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
+          <div className="space-y-6">
             <p className="accent-kicker">
               <span className="accent-dot" /> Engineering Discipline
             </p>
-            <h1 className="mt-4 max-w-3xl text-4xl font-extrabold leading-tight text-[var(--text-primary)] md:text-5xl md:leading-[1.08]">
+            <h1 className="section-heading max-w-3xl">
               Systems architecture with product-level execution standards.
             </h1>
-            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[var(--text-secondary)] md:text-base">
+            <p className="section-copy max-w-2xl text-[1.02rem] md:text-[1.08rem]">
               This page defines how technical decisions are made, implemented,
               and shipped. The objective is stable velocity: move quickly
               without sacrificing reliability or user experience quality.
             </p>
           </div>
 
-          <div className="surface-panel rounded-2xl p-5 md:p-6">
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {[
-                { icon: Layers, label: "System Boundaries", value: "Explicit" },
-                { icon: Gauge, label: "Perf Budgets", value: "Enforced" },
-                { icon: ShieldCheck, label: "Quality Gates", value: "CI" },
-                { icon: Cpu, label: "Infra Alignment", value: "Yes" },
-              ].map((metric) => (
-                <article key={metric.label} className="surface-soft rounded-xl p-3">
-                  <metric.icon className="h-4 w-4 text-[var(--accent)]" />
-                  <p className="mt-2 text-xs text-[var(--text-tertiary)]">{metric.label}</p>
-                  <p className="text-base font-semibold text-[var(--text-primary)]">{metric.value}</p>
-                </article>
-              ))}
-            </div>
+          <div className="grid gap-6 border-t border-[rgba(120,146,186,0.12)] pt-8 sm:grid-cols-2 xl:grid-cols-4">
+            {[
+              { icon: Layers, label: "System Boundaries", value: "Explicit" },
+              { icon: Gauge, label: "Perf Budgets", value: "Enforced" },
+              { icon: ShieldCheck, label: "Quality Gates", value: "CI" },
+              { icon: Cpu, label: "Infra Alignment", value: "Yes" },
+            ].map((metric) => (
+              <div key={metric.label} className="space-y-2">
+                <metric.icon className="h-4 w-4 text-[var(--accent)]" />
+                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
+                  {metric.label}
+                </p>
+                <p className="text-[1.8rem] font-bold tracking-[-0.03em] text-[var(--text-primary)]">
+                  {metric.value}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="mt-16 section-divider">
-        <div className="mb-6">
-          <h2 className="text-3xl font-bold text-[var(--text-primary)] md:text-4xl">
-            Core engineering principles.
-          </h2>
+      <section className="section-shell section-divider">
+        <div className="mb-12 space-y-4">
+          <p className="accent-kicker">
+            <span className="accent-dot" /> Principles
+          </p>
+          <h2 className="section-title max-w-3xl">Core engineering principles.</h2>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {logic.map((item) => (
-            <article key={item.title} className="surface-panel hover-lift rounded-xl p-5">
-              <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-tertiary)]">
+            <article key={item.title} className="rounded-[1.7rem] border border-[rgba(120,146,186,0.1)] bg-[rgba(10,17,29,0.14)] p-6">
+              <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
                 Principle
               </p>
-              <h3 className="mt-2 text-lg font-semibold text-[var(--text-primary)]">
+              <h3 className="mt-4 text-[1.12rem] font-semibold tracking-[-0.02em] text-[var(--text-primary)]">
                 {item.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-[var(--text-secondary)]">
+              <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)]">
                 {item.text}
               </p>
             </article>
@@ -112,65 +122,62 @@ export default function EngineeringPage() {
         </div>
       </section>
 
-      <section className="mt-16 section-divider">
-        <div className="surface-panel rounded-2xl p-6 md:p-8">
-          <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-3xl font-bold text-[var(--text-primary)] md:text-4xl">
-              Architecture runbook.
-            </h2>
-            <Binary className="h-6 w-6 text-[var(--accent)]" />
+      <section className="section-shell section-divider">
+        <div className="mb-12 flex items-end justify-between gap-4">
+          <div className="space-y-4">
+            <p className="accent-kicker">
+              <span className="accent-dot" /> Architecture Runbook
+            </p>
+            <h2 className="section-title max-w-3xl">Architecture runbook.</h2>
           </div>
+          <Binary className="hidden h-5 w-5 text-[var(--accent)] md:block" />
+        </div>
 
-          <div className="grid gap-4 lg:grid-cols-4">
-            {executionModel.map((stage, index) => (
-              <article
-                key={stage.title}
-                className="rounded-xl border border-[var(--border-soft)] bg-[rgba(10,17,29,0.82)] p-4"
-              >
-                <div className="flex items-center gap-2 text-xs text-[var(--text-tertiary)]">
-                  <span className="text-mono">0{index + 1}</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                  <span>Stage</span>
-                </div>
-                <h3 className="mt-2 text-base font-semibold text-[var(--text-primary)]">
-                  {stage.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--text-secondary)]">
-                  {stage.text}
-                </p>
-              </article>
-            ))}
-          </div>
+        <div className="grid gap-6 lg:grid-cols-4">
+          {executionModel.map((stage, index) => (
+            <article key={stage.title} className="rounded-[1.55rem] border border-[rgba(120,146,186,0.1)] bg-[rgba(10,17,29,0.1)] p-6">
+              <div className="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
+                <span className="text-mono">0{index + 1}</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+                <span>Stage</span>
+              </div>
+              <h3 className="mt-4 text-[1.08rem] font-semibold tracking-[-0.02em] text-[var(--text-primary)]">
+                {stage.title}
+              </h3>
+              <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)]">
+                {stage.text}
+              </p>
+            </article>
+          ))}
         </div>
       </section>
 
-      <section className="mt-16 section-divider">
-        <div className="grid gap-5 xl:grid-cols-[1.05fr_0.95fr]">
-          <article className="surface-panel rounded-2xl p-6 md:p-8">
-            <div className="mb-4 flex items-center gap-2 text-sm text-[var(--text-secondary)]">
+      <section className="section-shell section-divider">
+        <div className="grid gap-8 xl:grid-cols-[1.05fr_0.95fr] xl:items-start">
+          <article className="surface-panel rounded-[2rem] p-7 md:p-8">
+            <div className="mb-6 flex items-center gap-2 text-sm text-[var(--text-secondary)]">
               <Server className="h-4 w-4 text-[var(--accent)]" />
               Capability Stack
             </div>
-            <div className="space-y-6">
+            <div className="space-y-8">
               {Object.entries(skills).map(([category, items]) => (
                 <div key={category}>
-                  <p className="mb-3 text-xs uppercase tracking-[0.14em] text-[var(--text-tertiary)]">
+                  <p className="mb-4 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
                     {category}
                   </p>
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     {(items as string[]).map((skill, index) => (
-                      <div key={skill}>
-                        <div className="mb-1.5 flex items-center justify-between text-xs">
-                          <span className="text-[var(--text-secondary)]">{skill}</span>
-                          <span className="text-mono text-[var(--text-tertiary)]">
-                            {capabilityWeight(category, index)}
-                          </span>
-                        </div>
-                        <div className="signal-bar">
-                          <span
-                            style={{ width: `${capabilityWeight(category, index)}%` }}
-                          />
-                        </div>
+                      <div key={skill} className="grid gap-2 border-t border-[rgba(120,146,186,0.12)] pt-4 sm:grid-cols-[1fr_auto_auto] sm:items-center sm:gap-4">
+                        <span className="text-sm text-[var(--text-secondary)]">{skill}</span>
+                        <span className="capability-mark justify-self-start sm:justify-self-center" aria-hidden="true">
+                          <span />
+                          <span />
+                          <span style={{ opacity: capabilityWeight(category, index) > 84 ? 0.4 : 0.2 }} />
+                          <span style={{ opacity: capabilityWeight(category, index) > 88 ? 0.22 : 0.08 }} />
+                        </span>
+                        <span className="text-mono text-xs text-[var(--text-tertiary)] sm:justify-self-end">
+                          {capabilityWeight(category, index)}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -179,25 +186,23 @@ export default function EngineeringPage() {
             </div>
           </article>
 
-          <article className="surface-elevated rounded-2xl p-6 md:p-8">
-            <div className="mb-4 flex items-center gap-2 text-sm text-[var(--text-secondary)]">
+          <article className="surface-elevated rounded-[2rem] p-7 md:p-8">
+            <div className="mb-6 flex items-center gap-2 text-sm text-[var(--text-secondary)]">
               <Radar className="h-4 w-4 text-[var(--accent)]" />
               Readiness Checklist
             </div>
-            <div className="space-y-3">
+            <div className="space-y-4">
               {readinessChecklist.map((check) => (
-                <p key={check} className="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--accent)]" />
+                <p key={check} className="flex items-start gap-3 text-sm leading-7 text-[var(--text-secondary)]">
+                  <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-[var(--accent)]" />
                   {check}
                 </p>
               ))}
             </div>
 
-            <div className="mt-6 rounded-xl border border-[var(--border-soft)] bg-[rgba(10,17,29,0.82)] p-4">
-              <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-tertiary)]">
-                Working Philosophy
-              </p>
-              <div className="mt-3 space-y-2 text-sm text-[var(--text-secondary)]">
+            <div className="mt-8 border-t border-[rgba(120,146,186,0.12)] pt-6">
+              <p className="editorial-label">Working Philosophy</p>
+              <div className="mt-4 space-y-3 text-sm leading-7 text-[var(--text-secondary)]">
                 {philosophy.map((item) => (
                   <p key={item.title}>
                     <span className="text-[var(--text-primary)]">{item.title}:</span> {item.text}
@@ -206,7 +211,7 @@ export default function EngineeringPage() {
               </div>
             </div>
 
-            <p className="mt-5 text-sm leading-relaxed text-[var(--text-secondary)]">
+            <p className="mt-8 text-sm leading-7 text-[var(--text-secondary)]">
               Engineering quality is managed as a system, not a checklist item.
               The objective is reliable delivery under real constraints.
             </p>
@@ -214,9 +219,9 @@ export default function EngineeringPage() {
         </div>
       </section>
 
-      <section className="mt-16">
-        <div className="surface-elevated rounded-2xl p-6 md:p-8">
-          <div className="mb-4 flex items-center gap-2 text-sm text-[var(--text-secondary)]">
+      <section className="section-shell">
+        <div className="rounded-[1.85rem] border border-[rgba(120,146,186,0.1)] bg-[rgba(10,17,29,0.14)] p-7 md:p-8">
+          <div className="mb-6 flex items-center gap-2 text-sm text-[var(--text-secondary)]">
             <Workflow className="h-4 w-4 text-[var(--accent)]" />
             Delivery Sequence
           </div>
@@ -230,7 +235,7 @@ export default function EngineeringPage() {
               "Refinement",
             ].map((stage, index, arr) => (
               <React.Fragment key={stage}>
-                <span className="rounded-full border border-[var(--border-soft)] bg-[rgba(11,18,30,0.82)] px-3 py-1.5 text-[var(--text-secondary)]">
+                <span className="rounded-full border border-[rgba(120,146,186,0.12)] bg-[rgba(10,17,29,0.14)] px-4 py-2 text-[var(--text-secondary)]">
                   {stage}
                 </span>
                 {index < arr.length - 1 && <ArrowRight className="h-4 w-4 text-[var(--text-tertiary)]" />}
